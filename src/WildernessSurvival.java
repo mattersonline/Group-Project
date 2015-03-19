@@ -8,6 +8,7 @@ public class WildernessSurvival {
 		TestMap map = new TestMap(10);
 		map.display();
 		System.out.println("Finished testing test map...");
+		System.out.println("Test finished");
 		// initialize gui
 		// display map
 		// start game loop
