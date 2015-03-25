@@ -1,30 +1,21 @@
 
 public class TestMap {
 	public final int MAP_SIZE = 10;
-	private ILocation[][] mapArray;
+	private Card[][] mapArray;
 	
 	TestMap(int mapSize)
 	{
-		this.mapArray = new ILocation[this.MAP_SIZE][this.MAP_SIZE];
-		this.mapArray[6][4] = new GameLocation(0);
-		this.mapArray[0][8] = new GameLocation(1);
-		this.mapArray[2][1] = new BonusArea();
-		this.mapArray[4][5] = new BonusArea();
-		this.mapArray[7][8] = new BonusArea();
-		this.mapArray[2][4] = new InaccessibleArea();
-		this.mapArray[3][4] = new InaccessibleArea();
-		this.mapArray[4][4] = new InaccessibleArea();
-		this.mapArray[5][5] = new InaccessibleArea();
-		this.mapArray[6][6] = new InaccessibleArea();
-		this.mapArray[7][5] = new InaccessibleArea();
-		this.mapArray[8][7] = new InaccessibleArea();
-		this.mapArray[9][8] = new InaccessibleArea();
-		this.mapArray[2][6] = new CrossableLocation();
-		this.mapArray[2][7] = new CrossableLocation();
-		this.mapArray[2][8] = new CrossableLocation();
-		this.mapArray[5][0] = new CrossableLocation();
-		this.mapArray[5][1] = new CrossableLocation();
-		this.mapArray[5][2] = new CrossableLocation();
+		this.mapArray = new Card[this.MAP_SIZE][this.MAP_SIZE];
+		this.mapArray[6][4] = new StartCard();
+		this.mapArray[0][8] = new FinishCard();
+		this.mapArray[2][4] = new InaccessibleAreaCard();
+		this.mapArray[3][4] = new InaccessibleAreaCard();
+		this.mapArray[4][4] = new InaccessibleAreaCard();
+		this.mapArray[5][5] = new InaccessibleAreaCard();
+		this.mapArray[6][6] = new InaccessibleAreaCard();
+		this.mapArray[7][5] = new InaccessibleAreaCard();
+		this.mapArray[8][7] = new InaccessibleAreaCard();
+		this.mapArray[9][8] = new InaccessibleAreaCard();
 		
 		for(int row = 0; row < this.mapArray.length; row++)
 		{
@@ -32,7 +23,7 @@ public class TestMap {
 			{
 				if(this.mapArray[row][column] == null)
 				{
-					this.mapArray[row][column] = new TestScenario();
+					this.mapArray[row][column] = new ScenarioDemo();
 				}
 			}
 		}

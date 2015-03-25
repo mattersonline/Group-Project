@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class ScenarioDemo implements Scenario{
+public class ScenarioDemo extends ScenarioCard{
 	private int healthMod;
 	
 	public ScenarioDemo(){
@@ -29,5 +29,10 @@ public class ScenarioDemo implements Scenario{
 	
 	public int getHealthMod(){
 		return healthMod;
+	}
+	
+	public String toString()
+	{
+		return "S";
 	}
 }
