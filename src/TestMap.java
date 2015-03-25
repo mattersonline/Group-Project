@@ -1,3 +1,9 @@
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+
+import com.sun.prism.paint.Color;
+
 
 public class TestMap {
 	public final int MAP_SIZE = 10;
@@ -29,7 +35,7 @@ public class TestMap {
 		}
 	}
 	
-	public void display()
+	public void displayConsole()
 	{
 		System.out.print("  ");
 		for(int i = 0; i < this.mapArray.length; i++)
@@ -47,5 +53,21 @@ public class TestMap {
 			}
 			System.out.println();
 		}
+	}
+	
+	public JPanel getPanel()
+	{
+		JPanel mapPanel = new JPanel(new GridLayout(10,10));
+		
+		for(int row = 0; row < this.mapArray.length; row++)
+		{
+			for(int column = 0; column < this.mapArray[row].length; column++)
+			{
+				JLabel card = new JLabel(this.mapArray[row][column].toString());
+				mapPanel.add(card);
+			}
+		}
+		
+		return mapPanel;
 	}
 }
