@@ -1,9 +1,6 @@
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
-
-import com.sun.prism.paint.Color;
-
 
 public class TestMap {
 	public final int MAP_SIZE = 10;
@@ -63,7 +60,9 @@ public class TestMap {
 		{
 			for(int column = 0; column < this.mapArray[row].length; column++)
 			{
-				JLabel card = new JLabel(this.mapArray[row][column].toString());
+				JLabel card = new JLabel(this.mapArray[row][column].toString(), JLabel.CENTER);
+				card.setSize(25,40);
+				card.setBorder(new LineBorder(Color.BLACK));
 				mapPanel.add(card);
 			}
 		}
