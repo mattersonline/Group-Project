@@ -5,8 +5,10 @@ import javax.swing.border.*;
 import javax.swing.*;
 
 
-public class WildernessSurvival {
-
+public class WildernessSurvival 
+{
+	public static boolean isGameOver = false;
+	
 	public static void main(String[] args) {
 		// initialize player
 		// initialize map
@@ -30,7 +32,7 @@ public class WildernessSurvival {
 		try
 		{
 			long pauseTime = 250;
-			boolean isGameOver = false;
+			
 			Direction currentDirection = Direction.NORTH;
 			int directionSwitch = 0;
 			Random randomDirectionSwitcher = new Random();
