@@ -3,7 +3,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class TestMap {
-	public final int MAP_SIZE = 10;
+	private final int MAP_SIZE = 10;
 	private Card[][] mapArray;
 	private MapTile startingTile;
 	private MapTile finishTile;
