@@ -9,9 +9,11 @@ public abstract class Map {
 	private MapTile finishTile;
 	private MapTile currentPlayerLocation;
 	private Color defaultTileColor; 
+	private int mapSize;
 	
 	protected Map(int mapSize)
 	{
+		this.mapSize = mapSize;
 		this.mapArray = new Card[mapSize][mapSize];
 		this.mapArray = ScenarioRandomizer.RandomizeScenarios(this.mapArray);
 	}
@@ -166,7 +168,7 @@ public abstract class Map {
 	
 	public JPanel getMapPanel()
 	{
-		JPanel mapPanel = new JPanel(new GridLayout(10,10));
+		JPanel mapPanel = new JPanel(new GridLayout(this.mapSize,this.mapSize));
 		
 		for(int y = 0; y < this.mapArray.length; y++)
 		{
