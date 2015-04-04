@@ -24,13 +24,18 @@ public abstract class Map {
 	protected void setStart(MapTile start)
 	{
 		this.startingTile = start;
-		this.mapArray[start.getYCoordinate()][start.getYCoordinate()] = new StartCard();
+		this.mapArray[start.getYCoordinate()][start.getXCoordinate()] = new StartCard();
 	}
 	
 	protected void setFinish(MapTile finish)
 	{
 		this.finishTile = finish;
-		this.mapArray[finish.getYCoordinate()][finish.getYCoordinate()] = new FinishCard();
+		this.mapArray[finish.getYCoordinate()][finish.getXCoordinate()] = new FinishCard();
+	}
+	
+	protected void setCard(MapTile tile, Card card)
+	{
+		this.mapArray[tile.getYCoordinate()][tile.getXCoordinate()] = card;
 	}
 	
 	protected void setCurrentPlayerLocation(MapTile currentPlayerLocation)
@@ -119,6 +124,18 @@ public abstract class Map {
 					successfullyMoved = false;
 				}
 				break;
+		}
+		
+		try{
+			Card currentCard = this.mapArray[this.currentPlayerLocation.getYCoordinate()][this.currentPlayerLocation.getYCoordinate()];
+			if(currentCard instanceof ScenarioCard)
+			{
+				((ScenarioCard)currentCard).runScript();
+			}
+		}
+		catch(Exception error)
+		{
+			WildernessSurvival.log(error.getMessage());
 		}
 		
 		return successfullyMoved;
