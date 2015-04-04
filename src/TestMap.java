@@ -13,6 +13,7 @@ public class TestMap extends Map
 		MapTile currentPlayerLocation = new MapTile(6,4);
 				
 		// setup inaccessible areas
+		super.setCard(new MapTile(3, 0), new InaccessibleAreaCard());
 		super.setCard(new MapTile(3, 1), new InaccessibleAreaCard());
 		super.setCard(new MapTile(2, 4), new InaccessibleAreaCard());
 		super.setCard(new MapTile(3, 4), new InaccessibleAreaCard());
