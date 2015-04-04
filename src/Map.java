@@ -10,8 +10,9 @@ public abstract class Map {
 	private MapTile currentPlayerLocation;
 	private Color defaultTileColor; 
 	
-	protected Map()
+	protected Map(int mapSize)
 	{
+		this.mapArray = new Card[mapSize][mapSize];
 		this.mapArray = ScenarioRandomizer.RandomizeScenarios(this.mapArray);
 	}
 	

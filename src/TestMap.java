@@ -6,6 +6,7 @@ public class TestMap extends Map
 {
 	TestMap(int mapSize)
 	{
+		super(10);
 		mapSize = 10;
 		MapTile startTile = new MapTile(6,4);
 		MapTile finishTile = new MapTile(0,8);
