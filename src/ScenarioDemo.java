@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class ScenarioDemo extends ScenarioCard{
+public class ScenarioDemo extends situationScenario{
 	private int healthMod;
 	
 	public ScenarioDemo(){
