@@ -175,14 +175,35 @@ public abstract class Map {
 				JLabel card = new JLabel(this.mapArray[y][x].toString(), JLabel.CENTER);
 				card.setSize(25,40);
 				card.setBorder(new LineBorder(Color.BLACK));
-				
+
+				// CREDIT for setting background: http://stackoverflow.com/questions/2380314/how-do-i-set-a-jlabels-background-color/2380328#2380328
 				if(x == this.currentPlayerLocation.getXCoordinate() && y == this.currentPlayerLocation.getYCoordinate())
 				{
 					// if current player location
 					card.setBackground(Color.YELLOW);
-					// CREDIT for setting background: http://stackoverflow.com/questions/2380314/how-do-i-set-a-jlabels-background-color/2380328#2380328
 					card.setOpaque(true);
 				}
+				else if(this.mapArray[y][x] instanceof InaccessibleAreaCard)
+				{
+					card.setBackground(Color.RED);
+					card.setOpaque(true);
+				}
+				else if(this.mapArray[y][x] instanceof ScenarioCard)
+				{
+					card.setBackground(Color.WHITE);
+					card.setOpaque(true);
+				}
+				else if(this.mapArray[y][x] instanceof StartCard)
+				{
+					card.setBackground(Color.CYAN);
+					card.setOpaque(true);
+				}
+				else if(this.mapArray[y][x] instanceof FinishCard)
+				{
+					card.setBackground(Color.GREEN);
+					card.setOpaque(true);
+				}
+				
 				mapPanel.add(card);
 			}
 		}
