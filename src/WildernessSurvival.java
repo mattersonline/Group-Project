@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.util.Random;
 
 import javax.swing.border.*;
@@ -8,6 +10,15 @@ import javax.swing.*;
 public class WildernessSurvival 
 {
 	public static boolean isGameOver = false;
+	public static JTextArea logBox;
+	
+	public static void log(String text)
+	{
+		logBox.append(text + "\n");
+		// scroll the log area to the bottom so the latest logs are always visible
+		// REFERENCE CREDIT: http://stackoverflow.com/questions/6131735/java-scroll-jscrollpane-with-jpanel-within-to-bottom/6132046#6132046
+        logBox.scrollRectToVisible(new Rectangle(0,logBox.getHeight(),0,0));
+	}
 	
 	public static void main(String[] args) {
 		// initialize player
@@ -18,15 +29,18 @@ public class WildernessSurvival
 		frame.setLayout(new BorderLayout());
 		JPanel mapPanel = map.getMapPanel();
 		frame.add(mapPanel, BorderLayout.CENTER);
-		JLabel statusBar = new JLabel();
-		JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		statusPanel.add(statusBar);
+		logBox = new JTextArea();
+		JPanel statusPanel = new JPanel(new BorderLayout());
+		// REFERENCE CREDIT: http://stackoverflow.com/questions/1052473/scrollbars-in-jtextarea/1053036#1053036
+		JScrollPane logPane = new JScrollPane(logBox);
+		statusPanel.setPreferredSize(new Dimension(frame.getWidth(), 75));
+		statusPanel.add(logPane, BorderLayout.CENTER);
 		frame.add(statusPanel, BorderLayout.SOUTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(400,400);
 		// display map
 		frame.setVisible(true);
-		statusBar.setText("Game started...");
+		WildernessSurvival.log("Game started...");
 		
 		// start game loop
 		try
@@ -59,7 +73,7 @@ public class WildernessSurvival
 				{
 					frame.remove(mapPanel);
 					mapPanel = map.getMapPanel();
-					statusBar.setText("Player moved to " + map.getPlayerLocation().getXCoordinate() + "," + map.getPlayerLocation().getYCoordinate());
+					WildernessSurvival.log("Player moved to " + map.getPlayerLocation().getXCoordinate() + "," + map.getPlayerLocation().getYCoordinate());
 					frame.add(mapPanel);
 					// REFERENCE CREDIT: http://stackoverflow.com/questions/8608902/the-correct-way-to-swap-a-component-in-java/8608955#8608955
 					frame.revalidate();
@@ -69,7 +83,7 @@ public class WildernessSurvival
 				}
 				else
 				{
-					statusBar.setText("Player tried to go to an invalid spot");
+					WildernessSurvival.log("Player tried to go to an invalid spot");
 				}
 				
 				Thread.sleep(pauseTime);
@@ -81,7 +95,7 @@ public class WildernessSurvival
 			e.printStackTrace();
 		}
 		
-		statusBar.setText("Player has finished the game...");
+		WildernessSurvival.log("Player has finished the game...");
 	}
 
 }
