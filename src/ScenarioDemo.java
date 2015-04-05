@@ -35,4 +35,7 @@ public class ScenarioDemo extends situationScenario{
 	{
 		return "S";
 	}
+	public Item[] addItem(){
+		return null;
+	}
 }
