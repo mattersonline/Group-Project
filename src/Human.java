@@ -7,9 +7,9 @@ public class Human extends Mammal {
 	
 	public Human()
 	{	
-		// humans have strength multiplier of 5
-		// (bears might have 7 - 10 or something like that)
-		super(5); 
+		// humans have strength multiplier of 50%
+		// (bears might have 70% - 80% or something like that)
+		super(.5); 
 		this.inventory = new ArrayList<Item>();
 	}
 	
