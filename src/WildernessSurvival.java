@@ -11,6 +11,7 @@ public class WildernessSurvival
 {
 	public static boolean isGameOver = false;
 	public static JTextArea logBox;
+	public static Human player;
 	
 	public static void log(String text)
 	{
@@ -22,6 +23,7 @@ public class WildernessSurvival
 	
 	public static void main(String[] args) {
 		// initialize player
+		WildernessSurvival.player = new Human();
 		// initialize map
 		TestMap map = new TestMap(10);
 		// initialize gui
@@ -84,6 +86,12 @@ public class WildernessSurvival
 				else
 				{
 					WildernessSurvival.log("Player tried to go to an invalid spot");
+				}
+
+				if(player.getHealth() <= 0)
+				{
+					isGameOver = true;
+					WildernessSurvival.log("GAME OVER! YOU DIED!");
 				}
 				
 				Thread.sleep(pauseTime);
