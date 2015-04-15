@@ -4,9 +4,9 @@
 public abstract class Mammal {
 	private int health;
 	private int energy;
-	private int strengthMultiplier;
+	private double strengthMultiplier;
 	
-	public Mammal(int strengthMultiplier)
+	public Mammal(double strengthMultiplier)
 	{
 		this.health = 100;
 		this.energy = 100;
@@ -44,7 +44,7 @@ public abstract class Mammal {
 		// the defense bonus allows you to take a certain amount of damage
 		// without losing any health or energy. The attack strength is
 		// lessened by that much
-		int defenseBonus = this.getStrength() - (this.health + this.energy);
+		int defenseBonus = this.getStrength() - ((int)(this.health * .10) + this.energy);
 		
 		int tempStrength;
 		// lessen the attack by the amount of this Mammal's defense bonus
@@ -88,4 +88,31 @@ public abstract class Mammal {
 		}
 	}
 
+	public int getHealth()
+	{
+		return this.health;
+	}
+	
+	public int getEnergy()
+	{
+		return this.energy;
+	}
 }
+
+/*
+	ITEMS TO ADD:
+	1. BE ABLE TO DIRECTLY IMPACT HEALTH/ENERGY
+	2. ACCESS INVENTORY
+	3. ADD TO INVENTORY
+	4. REMOVE FROM INVENTORY
+	5. hunger stat (change energy to hunger)
+	
+	1. auto impacts deduct for hunger
+	2. impact inventory items by using them
+	3. apply penalties
+	
+	Playable
+	Informable
+	Fightable
+	
+*/
