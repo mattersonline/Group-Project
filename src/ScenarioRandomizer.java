@@ -12,9 +12,9 @@ public final class ScenarioRandomizer {
 		for(int i = 0; i < map[1].length; i++){
 			for(int j = 0; j < map[1].length; j++){
 				if(map[i][j] == null){
-					cardPicked = randomizer.nextInt(arr.size() - 1);
+					cardPicked = randomizer.nextInt(1);
 					map[i][j] = arr.get(cardPicked);
-					arr.remove(cardPicked);
+					//arr.remove(cardPicked);
 				}
 			}
 		}
