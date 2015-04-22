@@ -6,32 +6,102 @@ import java.awt.event.*;
 
 public class GUI extends JFrame implements KeyListener 
 {
-	public JPanel mapPanel;
-	public JTextArea logBox;
+	private JPanel mapPanel;
+	private JTextArea logBox;
+	private JProgressBar healthBar;
+	private JProgressBar hungerBar;
 	
 	public GUI()
 	{
 		// initialize GUI
 		this.mapPanel = new JPanel();
 		this.logBox = new JTextArea();
-		
+		this.healthBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
+		this.healthBar.setPreferredSize(new Dimension(100,15));
+		this.hungerBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
+		this.hungerBar.setPreferredSize(new Dimension(100,15));
 		this.setLayout(new BorderLayout());
+		
+		// setup the map panel
 		this.add(this.mapPanel, BorderLayout.CENTER);
+		// display map
+		this.setMapPanel(WildernessSurvival.map.getMapPanel());
+
+		// setup the log area
 		JPanel statusPanel = new JPanel(new BorderLayout());
 		// REFERENCE CREDIT: http://stackoverflow.com/questions/1052473/scrollbars-in-jtextarea/1053036#1053036
 		JScrollPane logPane = new JScrollPane(this.logBox);
-		statusPanel.setPreferredSize(new Dimension(this.getWidth(), 75));
+		statusPanel.setPreferredSize(new Dimension(this.getWidth(), 150));
 		statusPanel.add(logPane, BorderLayout.CENTER);
 		this.add(statusPanel, BorderLayout.SOUTH);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(400,400);
-		// display map
-		this.setMapPanel(WildernessSurvival.map.getMapPanel());
+		
+		//setup the right side of the gui
+		JPanel rightPanel = new JPanel(new GridLayout(2,1));
+		rightPanel.setPreferredSize(new Dimension(125, this.getHeight()));
+		
+		// health panel
+		JPanel healthPanel = new JPanel(new FlowLayout());
+		healthPanel.add(new JLabel("Health"));
+		healthPanel.add(this.healthBar);
+		healthPanel.add(new JLabel("Hunger"));
+		healthPanel.add(this.hungerBar);
+		this.updateHealthBar();
+		
+		// inventory panel
+		JPanel inventoryPanel = new JPanel(new FlowLayout());
+		for(int i = 0; i < 10; i++)
+		{
+			inventoryPanel.add(new JLabel("Inventory Item " + i));
+		}
+		
+		// add healthPanel to right side
+		rightPanel.add(healthPanel);
+		
+		// add inventory panel to the right side
+		rightPanel.add(inventoryPanel);
+		
+		// add the right side
+		this.add(rightPanel, BorderLayout.EAST);
+		
+		// finish setting up the gui before displaying
 		this.addKeyListener(this);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(800,800);
 		// CREDIT: http://stackoverflow.com/questions/286727/java-keylistener-for-jframe-is-being-unresponsive
 		this.setFocusable(true);
 		this.setVisible(true);
 		this.log("Game started...");
+	}
+	
+	public void updateHealthBar()
+	{
+		int playerHealth = WildernessSurvival.player.getHealth();
+		int playerHunger = WildernessSurvival.player.getEnergy();
+		if(playerHealth > 100) playerHealth = 100;
+		if(playerHealth < 0) playerHealth = 0;
+		if(playerHunger > 100) playerHunger = 100;
+		if(playerHunger < 0) playerHunger = 0;
+		
+		this.healthBar.setForeground(this.getColor(playerHealth));
+		this.hungerBar.setForeground(this.getColor(playerHunger));
+		this.healthBar.setValue(playerHealth);
+		this.hungerBar.setValue(playerHunger);
+	}
+	
+	private Color getColor(int value)
+	{
+		if(value > 60)
+		{
+			return Color.GREEN;
+		}
+		else if(value > 25)
+		{
+			return Color.ORANGE;
+		}
+		else
+		{
+			return Color.RED;
+		}
 	}
 	
 	public void setMapPanel(JPanel mapPanel)
@@ -52,10 +122,7 @@ public class GUI extends JFrame implements KeyListener
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent ke) { }
-
-	@Override
-	public void keyReleased(KeyEvent ke) 
+	public void keyPressed(KeyEvent ke) 
 	{
 		int key = ke.getKeyCode();
 		Direction currentDirection = Direction.NORTH;
@@ -100,6 +167,9 @@ public class GUI extends JFrame implements KeyListener
 		}
 		this.setMapPanel(WildernessSurvival.map.getMapPanel());
 	}
+
+	@Override
+	public void keyReleased(KeyEvent ke) { }
 
 	@Override
 	public void keyTyped(KeyEvent ke) { }
