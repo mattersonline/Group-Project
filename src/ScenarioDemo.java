@@ -7,10 +7,10 @@ public class ScenarioDemo extends situationScenario{
 	
 	public void runScript(){
 		Coyote enemy = new Coyote();
-		WildernessSurvival.log("Sample script");
-		WildernessSurvival.log("you are being attacked by an enemy");
+		WildernessSurvival.gui.log("Sample script");
+		WildernessSurvival.gui.log("you are being attacked by an enemy");
 		enemy.attack(WildernessSurvival.player);
-		WildernessSurvival.log("Your health is now : " + WildernessSurvival.player.getHealth());
+		WildernessSurvival.gui.log("Your health is now : " + WildernessSurvival.player.getHealth());
 	}
 	
 	public int getHealthMod(){
