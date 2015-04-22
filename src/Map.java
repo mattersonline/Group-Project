@@ -127,19 +127,21 @@ public abstract class Map {
 				}
 				break;
 		}
-		
-		try{
-			Card currentCard = this.mapArray[this.currentPlayerLocation.getYCoordinate()][this.currentPlayerLocation.getXCoordinate()];
-			if(currentCard instanceof ScenarioCard)
+		if(successfullyMoved)
+		{
+			try
 			{
-				((ScenarioCard)currentCard).runScript();
+				Card currentCard = this.mapArray[this.currentPlayerLocation.getYCoordinate()][this.currentPlayerLocation.getXCoordinate()];
+				if(currentCard instanceof ScenarioCard)
+				{
+					((ScenarioCard)currentCard).runScript();
+				}
+			}
+			catch(Exception error)
+			{
+				WildernessSurvival.log(error.getMessage());
 			}
 		}
-		catch(Exception error)
-		{
-			WildernessSurvival.log(error.getMessage());
-		}
-		
 		return successfullyMoved;
 	}
 	
