@@ -11,6 +11,8 @@ public class ScenarioDemo extends situationScenario{
 		WildernessSurvival.gui.log("you are being attacked by a " + enemy.getClass().getTypeName());
 		enemy.attack(WildernessSurvival.player);
 		WildernessSurvival.gui.log("Your health is now : " + WildernessSurvival.player.getHealth());
+		WildernessSurvival.gui.log("Adding 20 Health");
+		WildernessSurvival.player.addHealth(50);
 	}
 	
 	public int getHealthMod(){
