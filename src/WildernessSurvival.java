@@ -1,17 +1,20 @@
 import java.awt.*;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
+import java.awt.event.*;
 import java.util.Random;
 
 import javax.swing.border.*;
 import javax.swing.*;
 
 
-public class WildernessSurvival 
+public class WildernessSurvival
 {
 	public static boolean isGameOver = false;
 	public static JTextArea logBox;
 	public static Human player;
+	public static TestMap map;
+	public static JFrame frame;
+	public static JPanel mapPanel;
+	public static GUI gui;
 	
 	public static void log(String text)
 	{
@@ -25,11 +28,14 @@ public class WildernessSurvival
 		// initialize player
 		WildernessSurvival.player = new Human();
 		// initialize map
-		TestMap map = new TestMap(10);
+		map = new TestMap(10);
 		// initialize gui
-		JFrame frame = new JFrame();
+		gui = new GUI();
+		
+		
+/*		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
-		JPanel mapPanel = map.getMapPanel();
+		mapPanel = map.getMapPanel();
 		frame.add(mapPanel, BorderLayout.CENTER);
 		logBox = new JTextArea();
 		JPanel statusPanel = new JPanel(new BorderLayout());
@@ -42,68 +48,66 @@ public class WildernessSurvival
 		frame.setSize(400,400);
 		// display map
 		frame.setVisible(true);
-		WildernessSurvival.log("Game started...");
-		
-		// start game loop
-		try
-		{
-			long pauseTime = 250;
-			
-			Direction currentDirection = Direction.NORTH;
-			int directionSwitch = 0;
-			Random randomDirectionSwitcher = new Random();
-			while(!isGameOver)
-			{
-				directionSwitch = randomDirectionSwitcher.nextInt(5);
-				
-				switch(directionSwitch)
-				{
-					case 0:
-						currentDirection = Direction.NORTH;
-						break;
-					case 1:
-						currentDirection = Direction.EAST;
-						break;
-					case 2:
-						currentDirection = Direction.SOUTH;
-						break;
-					case 3:
-						currentDirection = Direction.WEST;
-						break;
-				}
-				if(map.movePlayer(currentDirection))
-				{
-					frame.remove(mapPanel);
-					mapPanel = map.getMapPanel();
-					WildernessSurvival.log("Player moved to " + map.getPlayerLocation().getXCoordinate() + "," + map.getPlayerLocation().getYCoordinate());
-					frame.add(mapPanel);
-					// REFERENCE CREDIT: http://stackoverflow.com/questions/8608902/the-correct-way-to-swap-a-component-in-java/8608955#8608955
-					frame.revalidate();
-					frame.repaint();
-
-					isGameOver = map.isFinished();
-				}
-				else
-				{
-					WildernessSurvival.log("Player tried to go to an invalid spot");
-				}
-
-				if(player.getHealth() <= 0)
-				{
-					isGameOver = true;
-					WildernessSurvival.log("GAME OVER! YOU DIED!");
-				}
-				
-				Thread.sleep(pauseTime);
-			}
-		} 
-		catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		WildernessSurvival.log("Player has finished the game...");
+		frame.addKeyListener(WildernessSurvival);
+		WildernessSurvival.log("Game started...");*/
+//		
+//		// start game loop
+//		try
+//		{
+//			long pauseTime = 250;
+//			
+//			Direction currentDirection = Direction.NORTH;
+//			int directionSwitch = 0;
+//			Random randomDirectionSwitcher = new Random();
+//			while(!isGameOver)
+//			{
+//				directionSwitch = randomDirectionSwitcher.nextInt(5);
+//				
+//				switch(directionSwitch)
+//				{
+//					case 0:
+//						currentDirection = Direction.NORTH;
+//						break;
+//					case 1:
+//						currentDirection = Direction.EAST;
+//						break;
+//					case 2:
+//						currentDirection = Direction.SOUTH;
+//						break;
+//					case 3:
+//						currentDirection = Direction.WEST;
+//						break;
+//				}
+//				if(map.movePlayer(currentDirection))
+//				{
+//					frame.remove(mapPanel);
+//					mapPanel = map.getMapPanel();
+//					WildernessSurvival.log("Player moved to " + map.getPlayerLocation().getXCoordinate() + "," + map.getPlayerLocation().getYCoordinate());
+//					frame.add(mapPanel);
+//					// REFERENCE CREDIT: http://stackoverflow.com/questions/8608902/the-correct-way-to-swap-a-component-in-java/8608955#8608955
+//					frame.revalidate();
+//					frame.repaint();
+//
+//					isGameOver = map.isFinished();
+//				}
+//				else
+//				{
+//					WildernessSurvival.log("Player tried to go to an invalid spot");
+//				}
+//
+//				if(player.getHealth() <= 0)
+//				{
+//					isGameOver = true;
+//					WildernessSurvival.log("GAME OVER! YOU DIED!");
+//				}
+//				
+//				Thread.sleep(pauseTime);
+//			}
+//		} 
+//		catch (InterruptedException e)
+//		{
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
-
 }
