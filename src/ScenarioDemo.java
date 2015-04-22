@@ -12,7 +12,7 @@ public class ScenarioDemo extends situationScenario{
 		enemy.attack(WildernessSurvival.player);
 		WildernessSurvival.gui.log("Your health is now : " + WildernessSurvival.player.getHealth());
 		WildernessSurvival.gui.log("Adding 20 Health");
-		WildernessSurvival.player.addHealth(50);
+		WildernessSurvival.player.addHealth(20);
 	}
 	
 	public int getHealthMod(){
