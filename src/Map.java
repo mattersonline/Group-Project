@@ -129,7 +129,7 @@ public abstract class Map {
 		}
 		
 		try{
-			Card currentCard = this.mapArray[this.currentPlayerLocation.getYCoordinate()][this.currentPlayerLocation.getYCoordinate()];
+			Card currentCard = this.mapArray[this.currentPlayerLocation.getYCoordinate()][this.currentPlayerLocation.getXCoordinate()];
 			if(currentCard instanceof ScenarioCard)
 			{
 				((ScenarioCard)currentCard).runScript();
