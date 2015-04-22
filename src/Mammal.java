@@ -97,6 +97,17 @@ public abstract class Mammal {
 	{
 		return this.energy;
 	}
+	
+	public void addHealth(int amountToAdd)
+	{
+		this.health += amountToAdd;
+	}
+	
+	public void addEnergy(int amountToAdd)
+	{
+		this.energy += amountToAdd;
+	}
+
 }
 
 /*
