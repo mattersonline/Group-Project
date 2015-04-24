@@ -156,17 +156,22 @@ public abstract class Map {
 	
 	public JPanel getMapPanel()
 	{
+		int playerX = this.currentPlayerLocation.getXCoordinate();
+		int playerY = this.currentPlayerLocation.getYCoordinate();
+		
 		JPanel mapPanel = new JPanel(new GridLayout(this.mapSize,this.mapSize));
 		Card currentCard = null;
+		JLabel cardSlot = null;
+		
 		for(int y = 0; y < this.mapArray.length; y++)
 		{
 			for(int x = 0; x < this.mapArray[y].length; x++)
 			{
 				currentCard = this.mapArray[y][x];
-				JLabel cardSlot = new JLabel();
+				cardSlot = new JLabel();
 				cardSlot.setHorizontalAlignment(JLabel.CENTER); // center content in the JLabel
 				cardSlot.setSize(25,40);
-				cardSlot.setBorder(new LineBorder(Color.BLACK));
+				//cardSlot.setBorder(new LineBorder(Color.BLACK));
 				
 				// if not a visited card
 				cardSlot.setBackground(Color.DARK_GRAY);
@@ -174,7 +179,13 @@ public abstract class Map {
 				// CREDIT for setting background: http://stackoverflow.com/questions/2380314/how-do-i-set-a-jlabels-background-color/2380328#2380328
 				cardSlot.setOpaque(true); // so background color will show
 				
-				if(currentCard.isShown())
+				if(x == playerX && y == playerY && !(currentCard instanceof FinishCard))
+				{
+					// if current player location
+					cardSlot.setBackground(new Color(0xE0AF28));
+					cardSlot.setIcon(new ImageIcon("src/images/player.png"));
+				}
+				else if(currentCard.isShown())
 				{
 					// CREDIT: http://www.javalobby.org/java/forums/t19183.html
 					cardSlot.setBackground(currentCard.getBackgroundColor());
