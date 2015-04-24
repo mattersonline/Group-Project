@@ -1,7 +1,5 @@
 import java.awt.*;
-
 import javax.swing.*;
-
 import java.awt.event.*;
 
 public class GUI extends JFrame implements KeyListener 
@@ -17,9 +15,9 @@ public class GUI extends JFrame implements KeyListener
 		this.mapPanel = new JPanel();
 		this.logBox = new JTextArea();
 		this.healthBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
-		this.healthBar.setPreferredSize(new Dimension(100,15));
+		this.healthBar.setPreferredSize(new Dimension(110,15));
 		this.hungerBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
-		this.hungerBar.setPreferredSize(new Dimension(100,15));
+		this.hungerBar.setPreferredSize(new Dimension(110,15));
 		this.setLayout(new BorderLayout());
 		
 		// setup the map panel
@@ -48,11 +46,19 @@ public class GUI extends JFrame implements KeyListener
 		this.updateHealthBar();
 		
 		// inventory panel
-		JPanel inventoryPanel = new JPanel(new FlowLayout());
-		for(int i = 0; i < 10; i++)
-		{
-			inventoryPanel.add(new JLabel("Inventory Item " + i));
-		}
+		JPanel inventoryPanel = new JPanel(new GridLayout(3,2));
+		JLabel healthButton = new JLabel(new ImageIcon("src/images/firstaid.png"));
+		healthButton.setPreferredSize(new Dimension(75,75));
+		inventoryPanel.add(healthButton);
+		inventoryPanel.add(new JLabel("x 0"));
+		JLabel weaponButton = new JLabel(new ImageIcon("src/images/dynamite.png"));
+		weaponButton.setPreferredSize(new Dimension(75,75));
+		inventoryPanel.add(weaponButton);
+		inventoryPanel.add(new JLabel("x 0"));
+		JLabel foodButton = new JLabel(new ImageIcon("src/images/fruit.png"));
+		foodButton.setPreferredSize(new Dimension(75,75));
+		inventoryPanel.add(foodButton);
+		inventoryPanel.add(new JLabel("x 0"));
 		
 		// add healthPanel to right side
 		rightPanel.add(healthPanel);

@@ -27,6 +27,10 @@ public class WildernessSurvival
 	public static void main(String[] args) {
 		// initialize player
 		WildernessSurvival.player = new Human();
+		for(int i = 0; i < 10; i++)
+		{
+			player.addInventoryItem(new HealthItem(player.getInventory().length));
+		}
 		// initialize map
 		map = new TestMap(10);
 		// initialize gui

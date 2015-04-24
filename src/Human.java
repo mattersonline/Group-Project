@@ -17,5 +17,15 @@ public class Human extends Mammal {
 	{
 		return this.inventory.toArray(new Item[]{});
 	}
+	
+	public void addInventoryItem(Item item)
+	{
+		this.inventory.add(item);
+	}
+	
+	public void useItem(Item item)
+	{
+		
+	}
 
 }

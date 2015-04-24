@@ -77,61 +77,35 @@ public abstract class Map {
 	
 	public boolean movePlayer(Direction movementDirection)
 	{
-		MapTile newPlayerLocation;
+		MapTile newPlayerLocation = null;
 		boolean successfullyMoved = true;
 		
 		switch(movementDirection)
 		{
 			case NORTH:
 				newPlayerLocation = new MapTile(this.currentPlayerLocation.getYCoordinate() - 1, this.currentPlayerLocation.getXCoordinate());
-				if(isLocationValid(newPlayerLocation))
-				{
-					this.currentPlayerLocation = newPlayerLocation;
-				}
-				else
-				{
-					successfullyMoved = false;
-				}
 				break;
 			case EAST:
 				newPlayerLocation = new MapTile(this.currentPlayerLocation.getYCoordinate(), this.currentPlayerLocation.getXCoordinate() + 1);
-				if(isLocationValid(newPlayerLocation))
-				{
-					this.currentPlayerLocation = newPlayerLocation;
-				}
-				else
-				{
-					successfullyMoved = false;
-				}
 				break;
 			case SOUTH:
 				newPlayerLocation = new MapTile(this.currentPlayerLocation.getYCoordinate() + 1, this.currentPlayerLocation.getXCoordinate());
-				if(isLocationValid(newPlayerLocation))
-				{
-					this.currentPlayerLocation = newPlayerLocation;
-				}
-				else
-				{
-					successfullyMoved = false;
-				}
 				break;
 			case WEST:
 				newPlayerLocation = new MapTile(this.currentPlayerLocation.getYCoordinate(), this.currentPlayerLocation.getXCoordinate() - 1);
-				if(isLocationValid(newPlayerLocation))
-				{
-					this.currentPlayerLocation = newPlayerLocation;
-				}
-				else
-				{
-					successfullyMoved = false;
-				}
 				break;
 		}
-		if(successfullyMoved)
+
+		if(isLocationValid(newPlayerLocation))
 		{
+			this.currentPlayerLocation = newPlayerLocation;
 			try
 			{
-				Card currentCard = this.mapArray[this.currentPlayerLocation.getYCoordinate()][this.currentPlayerLocation.getXCoordinate()];
+				int y = this.currentPlayerLocation.getYCoordinate();
+				int x = this.currentPlayerLocation.getXCoordinate();
+				Card currentCard = this.mapArray[y][x];
+				this.mapArray[y][x].setShown(true);
+				
 				if(currentCard instanceof ScenarioCard)
 				{
 					((ScenarioCard)currentCard).runScript();
@@ -142,20 +116,32 @@ public abstract class Map {
 				WildernessSurvival.log(error.getMessage());
 			}
 		}
+		else
+		{
+			if(isLocationInBounds(newPlayerLocation))
+			{
+				this.mapArray[newPlayerLocation.getYCoordinate()][newPlayerLocation.getXCoordinate()].setShown(true);
+			}
+			successfullyMoved = false;
+		}
+		
 		return successfullyMoved;
+	}
+	
+	private boolean isLocationInBounds(int y, int x)
+	{
+		return (y >= 0 && x >= 0 && y < this.mapArray.length && x < this.mapArray[y].length);
+	}
+	
+	private boolean isLocationInBounds(MapTile location)
+	{
+		return isLocationInBounds(location.getYCoordinate(), location.getXCoordinate());
 	}
 	
 	private boolean isLocationValid(int y, int x)
 	{
 		boolean isValid = true;
-		if(x >= 0 && y >= 0 && y < this.mapArray.length && x < this.mapArray[y].length)
-		{
-			if(this.mapArray[y][x] instanceof InaccessibleAreaCard)
-			{
-				isValid = false;
-			}
-		}
-		else
+		if(!isLocationInBounds(y, x) || this.mapArray[y][x] instanceof InaccessibleAreaCard)
 		{
 			isValid = false;
 		}
@@ -171,44 +157,31 @@ public abstract class Map {
 	public JPanel getMapPanel()
 	{
 		JPanel mapPanel = new JPanel(new GridLayout(this.mapSize,this.mapSize));
-		
+		Card currentCard = null;
 		for(int y = 0; y < this.mapArray.length; y++)
 		{
 			for(int x = 0; x < this.mapArray[y].length; x++)
 			{
-				JLabel card = new JLabel(this.mapArray[y][x].toString(), JLabel.CENTER);
-				card.setSize(25,40);
-				card.setBorder(new LineBorder(Color.BLACK));
-
+				currentCard = this.mapArray[y][x];
+				JLabel cardSlot = new JLabel();
+				cardSlot.setHorizontalAlignment(JLabel.CENTER); // center content in the JLabel
+				cardSlot.setSize(25,40);
+				cardSlot.setBorder(new LineBorder(Color.BLACK));
+				
+				// if not a visited card
+				cardSlot.setBackground(Color.DARK_GRAY);
+				cardSlot.setForeground(Color.DARK_GRAY);
 				// CREDIT for setting background: http://stackoverflow.com/questions/2380314/how-do-i-set-a-jlabels-background-color/2380328#2380328
-				if(x == this.currentPlayerLocation.getXCoordinate() && y == this.currentPlayerLocation.getYCoordinate())
+				cardSlot.setOpaque(true); // so background color will show
+				
+				if(currentCard.isShown())
 				{
-					// if current player location
-					card.setBackground(Color.YELLOW);
-					card.setOpaque(true);
-				}
-				else if(this.mapArray[y][x] instanceof InaccessibleAreaCard)
-				{
-					card.setBackground(Color.RED);
-					card.setOpaque(true);
-				}
-				else if(this.mapArray[y][x] instanceof ScenarioCard)
-				{
-					card.setBackground(Color.WHITE);
-					card.setOpaque(true);
-				}
-				else if(this.mapArray[y][x] instanceof StartCard)
-				{
-					card.setBackground(Color.CYAN);
-					card.setOpaque(true);
-				}
-				else if(this.mapArray[y][x] instanceof FinishCard)
-				{
-					card.setBackground(Color.GREEN);
-					card.setOpaque(true);
+					// CREDIT: http://www.javalobby.org/java/forums/t19183.html
+					cardSlot.setBackground(currentCard.getBackgroundColor());
+					cardSlot.setIcon(currentCard.getIcon());
 				}
 				
-				mapPanel.add(card);
+				mapPanel.add(cardSlot);
 			}
 		}
 		
