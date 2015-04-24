@@ -13,7 +13,7 @@ public final class ScenarioRandomizer {
 			for(int j = 0; j < map[1].length; j++){
 				if(map[i][j] == null){
 					cardPicked = randomizer.nextInt(1);
-					map[i][j] = arr.get(cardPicked);
+					map[i][j] = new ScenarioDemo(); //arr.get(cardPicked);
 					//arr.remove(cardPicked);
 				}
 			}
