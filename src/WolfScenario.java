@@ -1,4 +1,4 @@
-public class WolfScenario extends SituationScenario {
+public class WolfScenario extends EncounterScenario {
 	public WolfScenario(){
 		super.enemy = new Wolf();
 	}
