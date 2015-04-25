@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class CoyoteScenario extends SituationScenario{
+public class CoyoteScenario extends EncounterScenario{
 	private int healthMod;
 	public CoyoteScenario(){
 		super.enemy = new Coyote();
