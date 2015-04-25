@@ -1,12 +1,7 @@
-import java.util.Scanner;
-public class ScenarioDemo extends situationScenario{
-	private int healthMod;
-	
-	public ScenarioDemo(){
-	}
+public abstract class SituationScenario extends ScenarioCard {
+	protected Mammal enemy;
 	
 	public void runScript(){
-		Coyote enemy = new Coyote();
 		WildernessSurvival.gui.log("Sample script");
 		WildernessSurvival.gui.log("you are being attacked by a " + enemy.getClass().getTypeName());
 		enemy.attack(WildernessSurvival.player);
@@ -31,16 +26,6 @@ public class ScenarioDemo extends situationScenario{
 		
 		WildernessSurvival.gui.updateHealthBar();
 	}
-	
-	public int getHealthMod(){
-		return healthMod;
-	}
-	
-	public String toString()
-	{
-		return "S";
-	}
-	public Item[] addItem(){
-		return null;
-	}
+	public abstract int getHealthMod();
+	public abstract Item[] addItem();
 }

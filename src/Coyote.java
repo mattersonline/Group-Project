@@ -5,4 +5,7 @@ public class Coyote extends Mammal {
 		// 10% strength multiplier
 		super(.25);
 	}
+	public Coyote(double str){
+		super(str);
+	}
 }
