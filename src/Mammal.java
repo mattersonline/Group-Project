@@ -4,7 +4,10 @@
 public abstract class Mammal {
 	private int health;
 	private int energy;
+	private int weakenedCounter = 0;
 	private double strengthMultiplier;
+	private int defenseBonus = 0;
+	private boolean isWeakened;
 	
 	public Mammal(double strengthMultiplier)
 	{
@@ -44,8 +47,17 @@ public abstract class Mammal {
 		// the defense bonus allows you to take a certain amount of damage
 		// without losing any health or energy. The attack strength is
 		// lessened by that much
-		int defenseBonus = this.getStrength() - ((int)(this.health * .10) + this.energy);
-		
+		if(!isWeakened){
+			defenseBonus = this.getStrength() - ((int)(this.health * .10) + this.energy);
+		}
+		else{
+			defenseBonus = this.getStrength() - ((int)(this.health * .5) + this.energy);
+			WildernessSurvival.gui.log("You are weakened!");
+			weakenedCounter--;
+			if(weakenedCounter == 0){
+				isWeakened = false;
+			}
+		}
 		int tempStrength;
 		// lessen the attack by the amount of this Mammal's defense bonus
 		// as well as impacting the current Mammals defense
@@ -108,6 +120,10 @@ public abstract class Mammal {
 		this.energy += amountToAdd;
 	}
 
+	public void weaken(int turns){
+		isWeakened = true;
+		weakenedCounter = turns;
+	}
 }
 
 /*
