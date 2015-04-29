@@ -5,7 +5,7 @@ public class DeerScenario extends EncounterScenario {
 		WildernessSurvival.gui.log("You killed a deer!");
 		WildernessSurvival.gui.log("You carve a piece of venison from the body");
 		WildernessSurvival.gui.log("You gain 50 energy!");
-		WildernessSurvival.player.addEnergy(50);
+		WildernessSurvival.player.updateEnergy(50);
 		WildernessSurvival.gui.log("Your hunger is now : " + WildernessSurvival.player.getEnergy());
 	}
 	public int getHealthMod() {

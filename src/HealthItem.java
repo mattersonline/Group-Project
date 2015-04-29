@@ -16,6 +16,6 @@ public class HealthItem extends Item
 	
 	public void use()
 	{
-		WildernessSurvival.player.addHealth(this.healthMod);
+		WildernessSurvival.player.updateHealth(this.healthMod);
 	}
 }

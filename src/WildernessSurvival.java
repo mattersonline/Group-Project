@@ -36,7 +36,6 @@ public class WildernessSurvival
 		// initialize gui
 		gui = new GUI();
 		
-		
 /*		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		mapPanel = map.getMapPanel();
