@@ -174,7 +174,8 @@ public abstract class Map {
 				//cardSlot.setBorder(new LineBorder(Color.BLACK));
 				
 				// if not a visited card
-				cardSlot.setBackground(Color.DARK_GRAY);
+				//cardSlot.setBackground(Color.DARK_GRAY);
+				cardSlot.setBackground(new Color(0xC28944));
 				cardSlot.setForeground(Color.DARK_GRAY);
 				// CREDIT for setting background: http://stackoverflow.com/questions/2380314/how-do-i-set-a-jlabels-background-color/2380328#2380328
 				cardSlot.setOpaque(true); // so background color will show

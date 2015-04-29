@@ -51,7 +51,7 @@ public abstract class Mammal {
 			defenseBonus = this.getStrength() - ((int)(this.health * .10) + this.energy);
 		}
 		else{
-			defenseBonus = this.getStrength() - ((int)(this.health * .5) + this.energy);
+			defenseBonus = this.getStrength() - ((int)(this.health * .05) + this.energy);
 			WildernessSurvival.gui.log("You are weakened!");
 			weakenedCounter--;
 			if(weakenedCounter == 0){
@@ -110,14 +110,14 @@ public abstract class Mammal {
 		return this.energy;
 	}
 	
-	public void addHealth(int amountToAdd)
+	public void updateHealth(int amount)
 	{
-		this.health += amountToAdd;
+		this.health += amount;
 	}
 	
-	public void addEnergy(int amountToAdd)
+	public void updateEnergy(int amount)
 	{
-		this.energy += amountToAdd;
+		this.energy += amount;
 	}
 
 	public void weaken(int turns){
