@@ -179,4 +179,5 @@ public class GUI extends JFrame implements KeyListener
 
 	@Override
 	public void keyTyped(KeyEvent ke) { }
+	
 }
