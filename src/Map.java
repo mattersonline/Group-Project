@@ -174,6 +174,11 @@ public abstract class Map {
 		return this.mapArray[y][x];
 	}
 	
+	public Card getCard(MapTile tile)
+	{
+		return this.getCard(tile.getXCoordinate(), tile.getYCoordinate());
+	}
+	
 	public JPanel getMapPanel()
 	{
 		int playerX = this.currentPlayerLocation.getXCoordinate();
