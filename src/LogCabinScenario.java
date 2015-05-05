@@ -51,7 +51,7 @@ public class LogCabinScenario extends ScenarioCard{
 				choice = super.displayDialog(message3, title3, null, options3, default3);
 				while(choice == 1){
 					super.alertDialog(alert1);
-					choice = super.displayDialog(message2, title2, null, options2, default2);
+					choice = super.displayDialog(message3, title3, null, options3, default3);
 				}
 				switch(choice){
 				case 0:
@@ -65,6 +65,7 @@ public class LogCabinScenario extends ScenarioCard{
 					break;
 				case 3:
 					super.alertDialog(alert5);
+					WildernessSurvival.player.weaken(2);
 					super.refocus();
 					break;
 				}
