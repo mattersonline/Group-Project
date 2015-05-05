@@ -122,7 +122,8 @@ public abstract class Mammal {
 
 	public void weaken(int turns){
 		isWeakened = true;
-		weakenedCounter = turns;
+		weakenedCounter += turns;
+		WildernessSurvival.gui.log("You are weakened for " + weakenedCounter + " turns!");
 	}
 }
 

@@ -1,4 +1,4 @@
-public class BearTrapScenario extends SituationScenario {
+public class BearTrapScenario extends ScenarioCard {
 
 	public BearTrapScenario(){
 	}
