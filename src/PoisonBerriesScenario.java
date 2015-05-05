@@ -4,7 +4,7 @@ public class PoisonBerriesScenario extends ScenarioCard {
 	public void runScript() {
 		int choice;
 		String message1 = "You find some bright purple berries! What do you do?";
-		String title1 = "Berrie Bush";
+		String title1 = "Berry Bush";
 		Object [] options1 = {"Leave them", "Eat some"};
 		Object default1 = (Object) "Leave them";
 		
