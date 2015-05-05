@@ -4,7 +4,7 @@ public class InaccessibleAreaCard extends GamePlayCard
 {
 	public InaccessibleAreaCard()
 	{
-		super(new ImageIcon("src/images/smallnosign.jpg"));
+		super(new ImageIcon("src/images/mountain.png"));
 	}
 	
 	public String toString()

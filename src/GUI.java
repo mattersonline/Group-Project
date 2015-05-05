@@ -1,5 +1,7 @@
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.awt.event.*;
 
 public class GUI extends JFrame implements KeyListener 
@@ -8,22 +10,25 @@ public class GUI extends JFrame implements KeyListener
 	private JTextArea logBox;
 	private JProgressBar healthBar;
 	private JProgressBar hungerBar;
+	private Map map;
+	private MapTile currentPlayerLocation;
 	
-	public GUI()
+	public GUI(Map map)
 	{
 		// initialize GUI
-		this.mapPanel = new JPanel();
+		this.map = map;
+		int mapSize = this.map.getSize();
+		this.mapPanel = new JPanel(new GridLayout(mapSize,mapSize));
 		this.logBox = new JTextArea();
 		this.healthBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
 		this.healthBar.setPreferredSize(new Dimension(110,15));
 		this.hungerBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
 		this.hungerBar.setPreferredSize(new Dimension(110,15));
 		this.setLayout(new BorderLayout());
+		this.currentPlayerLocation = this.map.getStart();
 		
 		// setup the map panel
 		this.add(this.mapPanel, BorderLayout.CENTER);
-		// display map
-		this.setMapPanel(WildernessSurvival.map.getMapPanel());
 
 		// setup the log area
 		JPanel statusPanel = new JPanel(new BorderLayout());
@@ -73,10 +78,13 @@ public class GUI extends JFrame implements KeyListener
 		this.addKeyListener(this);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(800,800);
+		
+		// display map
+		this.setupMapPanel();
+		this.showCard(this.map.getStart());
 		// CREDIT: http://stackoverflow.com/questions/286727/java-keylistener-for-jframe-is-being-unresponsive
 		this.setFocusable(true);
 		this.setVisible(true);
-		this.log("Game started...");
 	}
 	
 	public void updateHealthBar()
@@ -110,11 +118,33 @@ public class GUI extends JFrame implements KeyListener
 		}
 	}
 	
-	public void setMapPanel(JPanel mapPanel)
+	public void setupMapPanel()
 	{
-		this.remove(this.mapPanel);
-		this.mapPanel = mapPanel;
-		this.add(this.mapPanel);
+		int mapSize = this.map.getSize();
+		Card currentCard = null;
+		JLabel cardSlot = null;
+		
+		for(int y = 0; y < mapSize; y++)
+		{
+			for(int x = 0; x < mapSize; x++)
+			{
+				currentCard = this.map.getCard(x, y);
+				cardSlot = new JLabel();
+				cardSlot.setHorizontalAlignment(JLabel.CENTER); // center content in the JLabel
+				cardSlot.setSize(25,40);
+				//cardSlot.setBorder(new LineBorder(Color.BLACK));
+				
+				// if not a visited card
+				//cardSlot.setBackground(Color.DARK_GRAY);
+				cardSlot.setBackground(new Color(0xC28944));
+				cardSlot.setForeground(Color.DARK_GRAY);
+				// CREDIT for setting background: http://stackoverflow.com/questions/2380314/how-do-i-set-a-jlabels-background-color/2380328#2380328
+				cardSlot.setOpaque(true); // so background color will show
+				
+				this.mapPanel.add(cardSlot);
+			}
+		}
+		
 		this.revalidate();
 		this.repaint();
 	}
@@ -125,6 +155,85 @@ public class GUI extends JFrame implements KeyListener
 		// scroll the log area to the bottom so the latest logs are always visible
 		// REFERENCE CREDIT: http://stackoverflow.com/questions/6131735/java-scroll-jscrollpane-with-jpanel-within-to-bottom/6132046#6132046
         logBox.scrollRectToVisible(new Rectangle(0,logBox.getHeight(),0,0));
+	}
+
+	public boolean movePlayer(Direction movementDirection)
+	{
+		MapTile newPlayerLocation = null;
+		boolean successfullyMoved = true;
+		
+		switch(movementDirection)
+		{
+			case NORTH:
+				newPlayerLocation = new MapTile(this.currentPlayerLocation.getYCoordinate() - 1, this.currentPlayerLocation.getXCoordinate());
+				break;
+			case EAST:
+				newPlayerLocation = new MapTile(this.currentPlayerLocation.getYCoordinate(), this.currentPlayerLocation.getXCoordinate() + 1);
+				break;
+			case SOUTH:
+				newPlayerLocation = new MapTile(this.currentPlayerLocation.getYCoordinate() + 1, this.currentPlayerLocation.getXCoordinate());
+				break;
+			case WEST:
+				newPlayerLocation = new MapTile(this.currentPlayerLocation.getYCoordinate(), this.currentPlayerLocation.getXCoordinate() - 1);
+				break;
+		}
+
+		if(this.map.isLocationValid(newPlayerLocation))
+		{
+			try
+			{
+				this.showCard(currentPlayerLocation);
+				this.currentPlayerLocation = newPlayerLocation;
+				this.showCard(currentPlayerLocation, new ImageIcon("src/images/player.png"));
+				int y = this.currentPlayerLocation.getYCoordinate();
+				int x = this.currentPlayerLocation.getXCoordinate();
+				Card currentCard = this.map.getCard(x,y);
+				currentCard.setShown(true);
+				
+				if(currentCard instanceof ScenarioCard && !currentCard.isShown())
+				{
+					((ScenarioCard)currentCard).runScript();
+				}
+			}
+			catch(Exception error)
+			{
+				WildernessSurvival.log(error.getMessage());
+			}
+		}
+		else
+		{
+			if(this.map.isLocationInBounds(newPlayerLocation))
+			{
+				this.showCard(newPlayerLocation);
+			}
+			successfullyMoved = false;
+		}
+		
+		return successfullyMoved;
+	}
+	
+	private void showCard(int x, int y)
+	{
+		this.showCard(x, y, this.map.getCard(x, y).getIcon());
+	}
+	
+	private void showCard(int x, int y, ImageIcon icon)
+	{
+		Component tile = this.mapPanel.getComponent(y * this.map.getSize() + x);
+		JLabel label = (JLabel)tile;
+		label.setIcon(icon);
+		label = null;
+		tile = null;
+	}
+
+	private void showCard(MapTile tile)
+	{
+		this.showCard(tile.getXCoordinate(), tile.getYCoordinate());
+	}
+
+	private void showCard(MapTile tile, ImageIcon icon)
+	{
+		this.showCard(tile.getXCoordinate(), tile.getYCoordinate(), icon);
 	}
 	
 	@Override
@@ -150,16 +259,23 @@ public class GUI extends JFrame implements KeyListener
 				this.log("Invalid Input!");
 		}
 		
-		if(WildernessSurvival.map.movePlayer(currentDirection))
+		if(movePlayer(currentDirection))
 		{
-			int x = WildernessSurvival.map.getPlayerLocation().getXCoordinate();
-			int y = WildernessSurvival.map.getPlayerLocation().getYCoordinate();
+			int y = this.currentPlayerLocation.getYCoordinate();
+			int x = this.currentPlayerLocation.getXCoordinate();
 			this.log("Player moved to " + x  + "," + y);
 			
-			if(WildernessSurvival.map.isFinished())
+			if(this.currentPlayerLocation.equals(this.map.getFinish()))
 			{
 				this.removeKeyListener(this);
-				this.log("Player has finished the game...");
+				JOptionPane.showOptionDialog(
+						null,
+						"Congratulations... YOU WON!!", 
+						"FINISHED", JOptionPane.DEFAULT_OPTION, 
+						JOptionPane.PLAIN_MESSAGE, 
+						new ImageIcon("src/images/manwithtrophy.png"), 
+						new Object[] {"OK"}, 
+						"OK");
 			}
 			else if(WildernessSurvival.player.getHealth() <= 0)
 			{
@@ -171,7 +287,6 @@ public class GUI extends JFrame implements KeyListener
 		{
 			this.log("Player tried to go to an invalid spot");
 		}
-		this.setMapPanel(WildernessSurvival.map.getMapPanel());
 	}
 
 	@Override
