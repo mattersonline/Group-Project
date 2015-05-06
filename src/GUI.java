@@ -298,6 +298,8 @@ public class GUI extends JFrame implements KeyListener
 		int newHunger = WildernessSurvival.player.getEnergy();
 		WildernessSurvival.gui.log("Your health is now : " + newHealth);
 		WildernessSurvival.gui.log("Your hunger is now : " + newHunger);
+		WildernessSurvival.player.updateWeakenedCounter(-1);
+		WildernessSurvival.gui.log("You are weakened for another " + WildernessSurvival.player.getWeakenedCounter() + " turns!");
 		this.updateHealthBar();
 	}
 	
