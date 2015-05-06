@@ -299,7 +299,6 @@ public class GUI extends JFrame implements KeyListener
 	@Override
 	public void keyTyped(KeyEvent ke) { }
 	
-<<<<<<< Upstream, based on master
 	public void update(){
 		int newHealth = WildernessSurvival.player.getHealth();
 		int newHunger = WildernessSurvival.player.getEnergy();
@@ -308,7 +307,8 @@ public class GUI extends JFrame implements KeyListener
 		WildernessSurvival.player.updateWeakenedCounter(-1);
 		WildernessSurvival.gui.log("You are weakened for another " + WildernessSurvival.player.getWeakenedCounter() + " turns!");
 		this.updateHealthBar();
-=======
+	}
+	
 	public void alert(String message)
 	{
 		// CREDIT: http://docs.oracle.com/javase/tutorial/uiswing/components/internalframe.html
@@ -379,7 +379,6 @@ public class GUI extends JFrame implements KeyListener
 		this.revalidate();
 		this.repaint();
 		this.refocus();
->>>>>>> f183dfc update so that it uses alerts and prompts in the gui instead of external dialog boxes
 	}
 	
 	public void refocus(){
