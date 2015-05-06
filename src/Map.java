@@ -128,7 +128,7 @@ public abstract class Map {
 			}
 			catch(Exception error)
 			{
-				WildernessSurvival.log(error.getMessage());
+				WildernessSurvival.gui.log(error.getMessage());
 			}
 		}
 		else

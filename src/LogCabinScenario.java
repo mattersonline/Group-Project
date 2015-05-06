@@ -34,7 +34,7 @@ public class LogCabinScenario extends ScenarioCard{
 	public void runScript() {
 		switch(super.displayDialog(message1, title1, null, options1, default1)){
 		case 0:
-			super.refocus();
+			WildernessSurvival.gui.refocus();
 			break;
 		case 1:
 			choice = super.displayDialog(message2, title2, null, options2, default2);
@@ -44,7 +44,7 @@ public class LogCabinScenario extends ScenarioCard{
 			}
 			switch(choice){
 			case 0:
-				super.refocus();
+				WildernessSurvival.gui.refocus();
 				break;
 			case 2:
 				super.alertDialog(alert2);
@@ -55,18 +55,18 @@ public class LogCabinScenario extends ScenarioCard{
 				}
 				switch(choice){
 				case 0:
-					super.refocus();
+					WildernessSurvival.gui.refocus();
 					break;
 				case 2:
 					super.alertDialog(alert3);
 					s1.runScript();
 					super.alertDialog(alert4);
-					super.refocus();
+					WildernessSurvival.gui.refocus();
 					break;
 				case 3:
 					super.alertDialog(alert5);
 					WildernessSurvival.player.weaken(2);
-					super.refocus();
+					WildernessSurvival.gui.refocus();
 					break;
 				}
 				break;
@@ -74,7 +74,7 @@ public class LogCabinScenario extends ScenarioCard{
 				super.alertDialog(alert3);
 				s1.runScript();
 				super.alertDialog(alert4);
-				super.refocus();
+				WildernessSurvival.gui.refocus();
 				break;
 				
 			}
