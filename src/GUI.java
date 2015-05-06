@@ -185,19 +185,17 @@ public class GUI extends JFrame implements KeyListener
 				this.showCard(currentPlayerLocation);
 				this.currentPlayerLocation = newPlayerLocation;
 				this.showCard(currentPlayerLocation, new ImageIcon("src/images/player.png"));
-				int y = this.currentPlayerLocation.getYCoordinate();
-				int x = this.currentPlayerLocation.getXCoordinate();
-				Card currentCard = this.map.getCard(x,y);
-				currentCard.setShown(true);
+				Card currentCard = this.map.getCard(currentPlayerLocation);
 				
 				if(currentCard instanceof ScenarioCard && !currentCard.isShown())
 				{
 					((ScenarioCard)currentCard).runScript();
 				}
+				currentCard.setShown(true);
 			}
 			catch(Exception error)
 			{
-				WildernessSurvival.log(error.getMessage());
+				this.log(error.getMessage());
 			}
 		}
 		else
@@ -295,4 +293,9 @@ public class GUI extends JFrame implements KeyListener
 	@Override
 	public void keyTyped(KeyEvent ke) { }
 	
+	public void refocus(){
+		this.toFront();
+		this.setState(Frame.NORMAL);
+		this.requestFocus();
+	}
 }

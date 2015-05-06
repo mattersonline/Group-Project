@@ -28,9 +28,5 @@ public abstract class ScenarioCard extends GamePlayCard
 	public static void alertDialog(Object alert){
 		JOptionPane.showMessageDialog(null, alert);
 	}
-	public static void refocus(){
-		WildernessSurvival.frame.toFront();
-		WildernessSurvival.frame.setState(Frame.NORMAL);
-		WildernessSurvival.frame.requestFocus();
-	}
+	
 }
