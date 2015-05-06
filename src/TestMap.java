@@ -22,6 +22,7 @@ public class TestMap extends Map
 		super.setCard(new MapTile(7, 5), new InaccessibleAreaCard());
 		super.setCard(new MapTile(8, 7), new InaccessibleAreaCard());
 		super.setCard(new MapTile(9, 8), new InaccessibleAreaCard());
+		super.setCard(new MapTile(7, 6), new ReveneScenario());
 		
 		super.setFinish(finishTile);
 		super.setStart(startTile);

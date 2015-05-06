@@ -18,6 +18,7 @@ public class HealthyBerriesScenario extends ScenarioCard {
 			WildernessSurvival.player.updateHealth(30);
 			WildernessSurvival.player.updateEnergy(30);
 		}
+		WildernessSurvival.gui.update();
 	}
 
 	@Override

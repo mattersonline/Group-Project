@@ -5,6 +5,7 @@ public final class ScenarioRandomizer {
 	private ScenarioRandomizer(){}
 	
 	public static Card[][] RandomizeScenarios(Card[][] map){
+		
 		Random randomizer = new Random();
 		int cardsUsed = 0;
 		int cardPicked;
@@ -16,11 +17,10 @@ public final class ScenarioRandomizer {
 		arr.add(new WildDogScenario());
 		arr.add(new HealthyBerriesScenario());
 		arr.add(new PoisonBerriesScenario());
-		arr.add(new ReveneScenario());
 		for(int i = 0; i < map[1].length; i++){
 			for(int j = 0; j < map[1].length; j++){
 				if(map[i][j] == null){
-					cardPicked = randomizer.nextInt(9);
+					cardPicked = randomizer.nextInt(8);
 					map[i][j] = arr.get(cardPicked); //arr.get(cardPicked);
 					//arr.remove(cardPicked);
 				}

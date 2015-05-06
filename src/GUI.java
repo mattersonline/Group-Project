@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 public class GUI extends JFrame implements KeyListener 
 {
-	private JPanel mapPanel;
+	public JPanel mapPanel;
 	private JTextArea logBox;
 	private JProgressBar healthBar;
 	private JProgressBar hungerBar;
@@ -292,6 +292,14 @@ public class GUI extends JFrame implements KeyListener
 
 	@Override
 	public void keyTyped(KeyEvent ke) { }
+	
+	public void update(){
+		int newHealth = WildernessSurvival.player.getHealth();
+		int newHunger = WildernessSurvival.player.getEnergy();
+		WildernessSurvival.gui.log("Your health is now : " + newHealth);
+		WildernessSurvival.gui.log("Your hunger is now : " + newHunger);
+		this.updateHealthBar();
+	}
 	
 	public void refocus(){
 		this.toFront();

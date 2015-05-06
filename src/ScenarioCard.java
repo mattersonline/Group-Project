@@ -16,10 +16,9 @@ public abstract class ScenarioCard extends GamePlayCard
 	
 	public abstract void runScript();
 	public static int displayDialog(String message, String title, Icon icon, Object[] options, Object initialValue){
-		return JOptionPane.showOptionDialog(null, 
+		return JOptionPane.showOptionDialog(WildernessSurvival.gui.mapPanel, 
 		message, 
-		title, 
-		JOptionPane.DEFAULT_OPTION, 
+		title, JOptionPane.DEFAULT_OPTION, 
 		JOptionPane.PLAIN_MESSAGE, 
 		icon, 
 		options, 
