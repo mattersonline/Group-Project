@@ -39,7 +39,7 @@ public class LogCabinScenario extends ScenarioCard{
 		case 1:
 			choice = WildernessSurvival.gui.prompt(message2, title2, null, options2, default2);
 			while(choice == 1){
-				super.alertDialog(alert1);
+				WildernessSurvival.gui.alert(alert1);
 				choice = WildernessSurvival.gui.prompt(message2, title2, null, options2, default2);
 			}
 			switch(choice){
@@ -47,10 +47,10 @@ public class LogCabinScenario extends ScenarioCard{
 				WildernessSurvival.gui.refocus();
 				break;
 			case 2:
-				super.alertDialog(alert2);
+				WildernessSurvival.gui.alert(alert2);
 				choice = WildernessSurvival.gui.prompt(message3, title3, null, options3, default3);
 				while(choice == 1){
-					super.alertDialog(alert1);
+					WildernessSurvival.gui.alert(alert1);
 					choice = WildernessSurvival.gui.prompt(message3, title3, null, options3, default3);
 				}
 				switch(choice){
@@ -58,22 +58,22 @@ public class LogCabinScenario extends ScenarioCard{
 					WildernessSurvival.gui.refocus();
 					break;
 				case 2:
-					super.alertDialog(alert3);
+					WildernessSurvival.gui.alert(alert3);
 					s1.runScript();
-					super.alertDialog(alert4);
+					WildernessSurvival.gui.alert(alert4);
 					WildernessSurvival.gui.refocus();
 					break;
 				case 3:
-					super.alertDialog(alert5);
+					WildernessSurvival.gui.alert(alert5);
 					WildernessSurvival.player.weaken(2);
 					WildernessSurvival.gui.refocus();
 					break;
 				}
 				break;
 			case 3:
-				super.alertDialog(alert3);
+				WildernessSurvival.gui.alert(alert3);
 				s1.runScript();
-				super.alertDialog(alert4);
+				WildernessSurvival.gui.alert(alert4);
 				WildernessSurvival.gui.refocus();
 				break;
 				
