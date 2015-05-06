@@ -207,6 +207,7 @@ public class GUI extends JFrame implements KeyListener
 			successfullyMoved = false;
 		}
 		
+		this.updateHealthBar();
 		return successfullyMoved;
 	}
 	
