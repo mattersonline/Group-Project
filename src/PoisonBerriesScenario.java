@@ -16,6 +16,7 @@ public class PoisonBerriesScenario extends ScenarioCard {
 			super.alertDialog(alert1);
 			WildernessSurvival.player.weaken(5);
 		}
+		WildernessSurvival.gui.update();
 	}
 
 	@Override

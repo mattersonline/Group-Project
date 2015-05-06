@@ -23,6 +23,7 @@ public class ReveneScenario extends ScenarioCard {
 				WildernessSurvival.player.updateHealth(-50);
 			}
 		}
+		WildernessSurvival.gui.update();
 	}
 
 	@Override
