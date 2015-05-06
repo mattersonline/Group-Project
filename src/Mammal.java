@@ -1,3 +1,5 @@
+import javax.swing.ImageIcon;
+
 // The Mammal class holds attributes such as health and energy and
 // can attack other mammals. 
 // Author: David Taylor
@@ -8,6 +10,7 @@ public abstract class Mammal {
 	private double strengthMultiplier;
 	private int defenseBonus = 0;
 	private boolean isWeakened;
+	private ImageIcon icon;
 	
 	public Mammal(double strengthMultiplier)
 	{

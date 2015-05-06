@@ -1,6 +1,7 @@
 import java.awt.*;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
@@ -12,6 +13,8 @@ public class GUI extends JFrame implements KeyListener
 	private JProgressBar hungerBar;
 	private Map map;
 	private MapTile currentPlayerLocation;
+	private JPanel statusPanel;
+	private JPanel alertPanel;
 	
 	public GUI(Map map)
 	{
@@ -26,12 +29,14 @@ public class GUI extends JFrame implements KeyListener
 		this.hungerBar.setPreferredSize(new Dimension(110,15));
 		this.setLayout(new BorderLayout());
 		this.currentPlayerLocation = this.map.getStart();
+		this.alertPanel = new JPanel(new BorderLayout());
+		this.alertPanel.setBorder(new LineBorder(Color.RED,3));
 		
 		// setup the map panel
 		this.add(this.mapPanel, BorderLayout.CENTER);
 
 		// setup the log area
-		JPanel statusPanel = new JPanel(new BorderLayout());
+		statusPanel = new JPanel(new BorderLayout());
 		// REFERENCE CREDIT: http://stackoverflow.com/questions/1052473/scrollbars-in-jtextarea/1053036#1053036
 		JScrollPane logPane = new JScrollPane(this.logBox);
 		statusPanel.setPreferredSize(new Dimension(this.getWidth(), 150));
@@ -81,7 +86,7 @@ public class GUI extends JFrame implements KeyListener
 		
 		// display map
 		this.setupMapPanel();
-		this.showCard(this.map.getStart());
+		this.showCard(this.map.getStart(), new ImageIcon("src/images/player.png"));
 		// CREDIT: http://stackoverflow.com/questions/286727/java-keylistener-for-jframe-is-being-unresponsive
 		this.setFocusable(true);
 		this.setVisible(true);
@@ -207,6 +212,7 @@ public class GUI extends JFrame implements KeyListener
 			successfullyMoved = false;
 		}
 		
+		this.updateHealthBar();
 		return successfullyMoved;
 	}
 	
@@ -293,6 +299,7 @@ public class GUI extends JFrame implements KeyListener
 	@Override
 	public void keyTyped(KeyEvent ke) { }
 	
+<<<<<<< Upstream, based on master
 	public void update(){
 		int newHealth = WildernessSurvival.player.getHealth();
 		int newHunger = WildernessSurvival.player.getEnergy();
@@ -301,6 +308,78 @@ public class GUI extends JFrame implements KeyListener
 		WildernessSurvival.player.updateWeakenedCounter(-1);
 		WildernessSurvival.gui.log("You are weakened for another " + WildernessSurvival.player.getWeakenedCounter() + " turns!");
 		this.updateHealthBar();
+=======
+	public void alert(String message)
+	{
+		// CREDIT: http://docs.oracle.com/javase/tutorial/uiswing/components/internalframe.html
+		// CREDIT: https://docs.oracle.com/javase/8/docs/api/javax/swing/JInternalFrame.html
+		// CREDIT: http://www.herongyang.com/Swing/JOptionPane-Display-Internal-Dialog-Box.html
+		
+		this.alertPanel.setPreferredSize(new Dimension(this.getWidth(), 150));
+		this.alertPanel.removeAll();
+		JInternalFrame alertFrame = new JInternalFrame();
+		this.alertPanel.add(alertFrame);
+		this.remove(this.statusPanel);
+		this.add(this.alertPanel, BorderLayout.SOUTH);
+
+		this.revalidate();
+		this.repaint();
+		
+		JOptionPane.showInternalMessageDialog(alertFrame, message);
+
+		this.remove(this.alertPanel);
+		this.add(this.statusPanel, BorderLayout.SOUTH);
+		
+		this.revalidate();
+		this.repaint();
+		this.refocus();
+	}
+	
+	public int prompt(String message, String title, ImageIcon icon, String[] choices, String defaultChoice)
+	{	
+		// CREDIT: http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
+		// CREDIT: http://docs.oracle.com/javase/tutorial/uiswing/components/internalframe.html
+		// CREDIT: https://docs.oracle.com/javase/8/docs/api/javax/swing/JInternalFrame.html
+		// CREDIT: http://www.herongyang.com/Swing/JOptionPane-Display-Internal-Dialog-Box.html
+		
+		this.alertPanel.setPreferredSize(new Dimension(this.getWidth(), 150));
+		this.alertPanel.removeAll();
+		JInternalFrame alertFrame = new JInternalFrame();
+		alertPanel.add(alertFrame);
+		this.remove(this.statusPanel);
+		this.add(this.alertPanel, BorderLayout.SOUTH);
+
+		this.revalidate();
+		this.repaint();
+		
+		int choice = JOptionPane.showInternalOptionDialog(
+				alertFrame, 
+				message, 
+				title, 
+				JOptionPane.DEFAULT_OPTION, 
+				JOptionPane.PLAIN_MESSAGE, 
+				icon, 
+				choices, 
+				defaultChoice);
+
+		this.remove(this.alertPanel);
+		this.add(this.statusPanel, BorderLayout.SOUTH);
+		
+		this.revalidate();
+		this.repaint();
+		this.refocus();
+		
+		return choice;
+	}
+	
+	public void displayStatusPanel()
+	{
+		this.remove(this.alertPanel);
+		this.add(this.statusPanel, BorderLayout.SOUTH);
+		this.revalidate();
+		this.repaint();
+		this.refocus();
+>>>>>>> f183dfc update so that it uses alerts and prompts in the gui instead of external dialog boxes
 	}
 	
 	public void refocus(){

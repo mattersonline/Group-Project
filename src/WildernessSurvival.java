@@ -17,5 +17,6 @@ public class WildernessSurvival
 		WildernessSurvival.player = new Human();
 		// initialize gui
 		gui = new GUI(new TestMap(10));
+		gui.log("Game Started...");
 	}
 }
