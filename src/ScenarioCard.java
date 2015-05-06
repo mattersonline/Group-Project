@@ -9,7 +9,7 @@ public abstract class ScenarioCard extends GamePlayCard
 {
 	public ScenarioCard()
 	{
-		super(new ImageIcon("src/images/stump.png"));
+		super(new ImageIcon("src/images/forest.png"));
 		//super.setBackgroundColor(new Color(0xDECB97));
 		super.setBackgroundColor(new Color(0xEBD5B3));
 	}

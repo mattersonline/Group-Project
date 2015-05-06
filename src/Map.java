@@ -18,6 +18,21 @@ public abstract class Map {
 		this.mapArray = ScenarioRandomizer.RandomizeScenarios(this.mapArray);
 	}
 	
+	public int getSize()
+	{
+		return this.mapSize;
+	}
+
+	public MapTile getStart()
+	{
+		return this.startingTile;
+	}
+	
+	public MapTile getFinish()
+	{
+		return this.finishTile;
+	}
+	
 	protected void setCardArray(Card[][] cards)
 	{
 		this.mapArray = cards;
@@ -128,17 +143,17 @@ public abstract class Map {
 		return successfullyMoved;
 	}
 	
-	private boolean isLocationInBounds(int y, int x)
+	public boolean isLocationInBounds(int y, int x)
 	{
 		return (y >= 0 && x >= 0 && y < this.mapArray.length && x < this.mapArray[y].length);
 	}
 	
-	private boolean isLocationInBounds(MapTile location)
+	public boolean isLocationInBounds(MapTile location)
 	{
 		return isLocationInBounds(location.getYCoordinate(), location.getXCoordinate());
 	}
 	
-	private boolean isLocationValid(int y, int x)
+	public boolean isLocationValid(int y, int x)
 	{
 		boolean isValid = true;
 		if(!isLocationInBounds(y, x) || this.mapArray[y][x] instanceof InaccessibleAreaCard)
@@ -149,9 +164,19 @@ public abstract class Map {
 		return isValid;
 	}
 	
-	private boolean isLocationValid(MapTile location)
+	public boolean isLocationValid(MapTile location)
 	{
 		return isLocationValid(location.getYCoordinate(), location.getXCoordinate());
+	}
+	
+	public Card getCard(int x, int y)
+	{
+		return this.mapArray[y][x];
+	}
+	
+	public Card getCard(MapTile tile)
+	{
+		return this.getCard(tile.getXCoordinate(), tile.getYCoordinate());
 	}
 	
 	public JPanel getMapPanel()
