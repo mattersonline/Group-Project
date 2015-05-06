@@ -38,7 +38,6 @@ public abstract class EncounterScenario extends ScenarioCard {
 			WildernessSurvival.gui.log("Your health is now : " + WildernessSurvival.player.getEnergy());
 		}
 		
-		WildernessSurvival.gui.updateHealthBar();
 	}
 	public abstract int getHealthMod();
 	public abstract Item[] addItem();
