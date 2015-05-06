@@ -112,12 +112,19 @@ public abstract class Mammal {
 	
 	public void updateHealth(int amount)
 	{
-		this.health += amount;
+		if(this.health + amount <= 100){
+			this.health += amount;
+		}
+		else this.health = 100;
+		
 	}
 	
 	public void updateEnergy(int amount)
 	{
-		this.energy += amount;
+		if(this.energy + amount <= 100){
+			this.energy += amount;
+		}
+		else this.energy = 100;
 	}
 
 	public void weaken(int turns){
