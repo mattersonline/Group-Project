@@ -7,6 +7,7 @@ public abstract class EncounterScenario extends ScenarioCard {
 	public void runScript(){
 		WildernessSurvival.gui.log("Sample script");
 		WildernessSurvival.gui.log("you are being attacked by a " + enemy.getClass().getTypeName());
+		WildernessSurvival.gui.alert("you are being attacked by a " + enemy.getClass().getTypeName());
 		
 		// CREDIT: Online chapter 38 section 38.6.4
 		/*JOptionPane.showOptionDialog(null, 

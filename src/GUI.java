@@ -41,6 +41,15 @@ public class GUI extends JFrame implements KeyListener
 		JScrollPane logPane = new JScrollPane(this.logBox);
 		statusPanel.setPreferredSize(new Dimension(this.getWidth(), 150));
 		statusPanel.add(logPane, BorderLayout.CENTER);
+		
+		JPanel directionButtonsPanel = new JPanel(new BorderLayout());
+		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/leftarrow.png")), BorderLayout.WEST);
+		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/forwardarrow.png")), BorderLayout.NORTH);
+		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/rightarrow.png")), BorderLayout.EAST);
+		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/backarrow.png")), BorderLayout.SOUTH);
+		
+		statusPanel.add(directionButtonsPanel, BorderLayout.EAST);
+		
 		this.add(statusPanel, BorderLayout.SOUTH);
 		
 		//setup the right side of the gui
