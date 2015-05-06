@@ -7,20 +7,20 @@ public class LogCabinScenario extends ScenarioCard{
 	
 	String title1 = "A small clearing";
 	String message1 = "You are standing in a small clearing. Ahead of you is a cabin. It looks abandoned";
-	Object [] options1 = {"Leave", "Approach Cabin"};
-	Object  default1 = (Object) "Approach Cabin"; 
+	String [] options1 = {"Leave", "Approach Cabin"};
+	String  default1 = "Approach Cabin"; 
 	
 	String title2 = "In front of the cabin";
 	String message2 = "As you approach you study the cabin further. It is old and decrepit.\n"
 			+ " It looks like no one had been there for many years \n"
 			+ "You are standing in front of the cabin. What do you do?";
-	Object [] options2 = {"Leave", "Check Windows", "Try Door", "Go Around Back"};
-	Object default2 = (Object) "Try Door";
+	String [] options2 = {"Leave", "Check Windows", "Try Door", "Go Around Back"};
+	String default2 = "Try Door";
 	
 	String title3 = "In front of the cabin";
 	String message3 = "You are standing in front of the cabin. What do you do?";
-	Object [] options3 = {"Leave", "Check Windows", "Go Around Back", "Attempt to Break Down Door"};
-	Object default3 = (Object) "Leave";
+	String [] options3 = {"Leave", "Check Windows", "Go Around Back", "Attempt to Break Down Door"};
+	String default3 = "Leave";
 	
 	String alert1 = "The windows are grimy and you cannot see in";
 	String alert2 = "It is locked";
@@ -32,15 +32,15 @@ public class LogCabinScenario extends ScenarioCard{
 	
 	@Override
 	public void runScript() {
-		switch(super.displayDialog(message1, title1, null, options1, default1)){
+		switch(WildernessSurvival.gui.prompt(message1, title1, null, options1, default1)){
 		case 0:
 			WildernessSurvival.gui.refocus();
 			break;
 		case 1:
-			choice = super.displayDialog(message2, title2, null, options2, default2);
+			choice = WildernessSurvival.gui.prompt(message2, title2, null, options2, default2);
 			while(choice == 1){
 				super.alertDialog(alert1);
-				choice = super.displayDialog(message2, title2, null, options2, default2);
+				choice = WildernessSurvival.gui.prompt(message2, title2, null, options2, default2);
 			}
 			switch(choice){
 			case 0:
@@ -48,10 +48,10 @@ public class LogCabinScenario extends ScenarioCard{
 				break;
 			case 2:
 				super.alertDialog(alert2);
-				choice = super.displayDialog(message3, title3, null, options3, default3);
+				choice = WildernessSurvival.gui.prompt(message3, title3, null, options3, default3);
 				while(choice == 1){
 					super.alertDialog(alert1);
-					choice = super.displayDialog(message3, title3, null, options3, default3);
+					choice = WildernessSurvival.gui.prompt(message3, title3, null, options3, default3);
 				}
 				switch(choice){
 				case 0:
