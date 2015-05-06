@@ -272,13 +272,11 @@ public class GUI extends JFrame implements KeyListener
 			if(this.currentPlayerLocation.equals(this.map.getFinish()))
 			{
 				this.removeKeyListener(this);
-				JOptionPane.showOptionDialog(
-						null,
+				this.prompt(
 						"Congratulations... YOU WON!!", 
-						"FINISHED", JOptionPane.DEFAULT_OPTION, 
-						JOptionPane.PLAIN_MESSAGE, 
+						"FINISHED", 
 						new ImageIcon("src/images/manwithtrophy.png"), 
-						new Object[] {"OK"}, 
+						new String[] {"OK"}, 
 						"OK");
 			}
 			else if(WildernessSurvival.player.getHealth() <= 0)
