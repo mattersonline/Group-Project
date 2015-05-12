@@ -15,6 +15,10 @@ public class GUI extends JFrame implements KeyListener, MouseListener
 	private MapTile currentPlayerLocation;
 	private JPanel statusPanel;
 	private JPanel alertPanel;
+	private JPanel weaponPanel;
+	private JLabel weaponLabel;
+	private JLabel weaponDamageLabel;
+	private JLabel weaponUseLabel;
 	
 	public GUI(Map map)
 	{
@@ -79,19 +83,29 @@ public class GUI extends JFrame implements KeyListener, MouseListener
 		this.updateHealthBar();
 		
 		// inventory panel
-		JPanel inventoryPanel = new JPanel(new GridLayout(3,2));
-		JLabel healthButton = new JLabel(new ImageIcon("src/images/firstaid.png"));
-		healthButton.setPreferredSize(new Dimension(75,75));
+		JPanel inventoryPanel = new JPanel(new GridLayout(3,1));
+		this.weaponPanel = new JPanel(new BorderLayout());
+		
+		this.weaponLabel = new JLabel(new ImageIcon("src/images/dynamite.png"));
+		
+		JPanel weaponStatsPanel = new JPanel(new GridLayout(2,2));
+		weaponStatsPanel.add(new JLabel("Damage"));
+		this.weaponDamageLabel = new JLabel("|   75 ");
+		weaponStatsPanel.add(this.weaponDamageLabel);
+		weaponStatsPanel.add(new JLabel("Uses"));
+		this.weaponUseLabel = new JLabel("|   - ");
+		weaponStatsPanel.add(this.weaponUseLabel);
+
+		weaponPanel.add(weaponLabel, BorderLayout.CENTER);
+		weaponPanel.add(weaponStatsPanel, BorderLayout.SOUTH);
+		inventoryPanel.add(weaponPanel);
+		
+		JButton healthButton = new JButton(new ImageIcon("src/images/firstaid.png"));
+		healthButton.setText(" x 0");
 		inventoryPanel.add(healthButton);
-		inventoryPanel.add(new JLabel("x 0"));
-		JLabel weaponButton = new JLabel(new ImageIcon("src/images/dynamite.png"));
-		weaponButton.setPreferredSize(new Dimension(75,75));
-		inventoryPanel.add(weaponButton);
-		inventoryPanel.add(new JLabel("x 0"));
-		JLabel foodButton = new JLabel(new ImageIcon("src/images/fruit.png"));
-		foodButton.setPreferredSize(new Dimension(75,75));
+		JButton foodButton = new JButton(new ImageIcon("src/images/fruit.png"));
 		inventoryPanel.add(foodButton);
-		inventoryPanel.add(new JLabel("x 0"));
+		foodButton.setText(" x 0");
 		
 		// add healthPanel to right side
 		rightPanel.add(healthPanel);
