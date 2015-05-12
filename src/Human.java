@@ -29,6 +29,7 @@ public class Human extends Mammal {
 		return this.healthPackCount;
 	}
 
+<<<<<<< HEAD
 	public int getFoodCount()
 	{
 		return this.foodCount;
@@ -41,5 +42,9 @@ public class Human extends Mammal {
 			super.updateHealth(25);
 			this.healthPackCount--;
 		}
+=======
+	public String toString(){
+		return "Human";
+>>>>>>> refs/remotes/origin/master
 	}
 }

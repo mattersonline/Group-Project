@@ -8,4 +8,8 @@ public class Coyote extends Mammal {
 	public Coyote(double str){
 		super(str);
 	}
+	
+	public String toString(){
+		return "Coyote";
+	}
 }
