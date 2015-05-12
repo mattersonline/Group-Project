@@ -5,7 +5,7 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
-public class GUI extends JFrame implements KeyListener 
+public class GUI extends JFrame implements KeyListener, MouseListener
 {
 	public JPanel mapPanel;
 	private JTextArea logBox;
@@ -22,6 +22,7 @@ public class GUI extends JFrame implements KeyListener
 		this.map = map;
 		int mapSize = this.map.getSize();
 		this.mapPanel = new JPanel(new GridLayout(mapSize,mapSize));
+		this.mapPanel.addMouseListener(this);
 		this.logBox = new JTextArea();
 		this.healthBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
 		this.healthBar.setPreferredSize(new Dimension(110,15));
@@ -43,10 +44,23 @@ public class GUI extends JFrame implements KeyListener
 		statusPanel.add(logPane, BorderLayout.CENTER);
 		
 		JPanel directionButtonsPanel = new JPanel(new BorderLayout());
-		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/leftarrow.png")), BorderLayout.WEST);
-		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/forwardarrow.png")), BorderLayout.NORTH);
-		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/rightarrow.png")), BorderLayout.EAST);
-		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/backarrow.png")), BorderLayout.SOUTH);
+		
+		JButton leftButton = new JButton(new ImageIcon("src/images/leftarrow.png"));
+		leftButton.addMouseListener(new MoveButtonListener(Direction.WEST));
+		
+		JButton upButton = new JButton(new ImageIcon("src/images/forwardarrow.png"));
+		upButton.addMouseListener(new MoveButtonListener(Direction.NORTH));
+		
+		JButton rightButton = new JButton(new ImageIcon("src/images/rightarrow.png"));
+		rightButton.addMouseListener(new MoveButtonListener(Direction.EAST));
+		
+		JButton downButton = new JButton(new ImageIcon("src/images/backarrow.png"));
+		downButton.addMouseListener(new MoveButtonListener(Direction.SOUTH));
+		
+		directionButtonsPanel.add(leftButton, BorderLayout.WEST);
+		directionButtonsPanel.add(upButton, BorderLayout.NORTH);
+		directionButtonsPanel.add(rightButton, BorderLayout.EAST);
+		directionButtonsPanel.add(downButton, BorderLayout.SOUTH);
 		
 		statusPanel.add(directionButtonsPanel, BorderLayout.EAST);
 		
@@ -222,6 +236,34 @@ public class GUI extends JFrame implements KeyListener
 		}
 		
 		this.updateHealthBar();
+		
+		if(successfullyMoved)
+		{
+			int y = this.currentPlayerLocation.getYCoordinate();
+			int x = this.currentPlayerLocation.getXCoordinate();
+			this.log("Player moved to " + x  + "," + y);
+			
+			if(this.currentPlayerLocation.equals(this.map.getFinish()))
+			{
+				this.removeKeyListener(this);
+				this.prompt(
+						"Congratulations... YOU WON!!", 
+						"FINISHED", 
+						new ImageIcon("src/images/manwithtrophy.png"), 
+						new String[] {"OK"}, 
+						"OK");
+			}
+			else if(WildernessSurvival.player.getHealth() <= 0)
+			{
+				this.removeKeyListener(this);
+				this.log("GAME OVER! YOU DIED!");
+			}
+		}
+		else
+		{
+			this.log("Player tried to go to an invalid spot");
+		}
+		
 		return successfullyMoved;
 	}
 	
@@ -271,33 +313,7 @@ public class GUI extends JFrame implements KeyListener
 			default:
 				this.log("Invalid Input!");
 		}
-		
-		if(movePlayer(currentDirection))
-		{
-			int y = this.currentPlayerLocation.getYCoordinate();
-			int x = this.currentPlayerLocation.getXCoordinate();
-			this.log("Player moved to " + x  + "," + y);
-			
-			if(this.currentPlayerLocation.equals(this.map.getFinish()))
-			{
-				this.removeKeyListener(this);
-				this.prompt(
-						"Congratulations... YOU WON!!", 
-						"FINISHED", 
-						new ImageIcon("src/images/manwithtrophy.png"), 
-						new String[] {"OK"}, 
-						"OK");
-			}
-			else if(WildernessSurvival.player.getHealth() <= 0)
-			{
-				this.removeKeyListener(this);
-				this.log("GAME OVER! YOU DIED!");
-			}
-		}
-		else
-		{
-			this.log("Player tried to go to an invalid spot");
-		}
+		this.movePlayer(currentDirection);
 	}
 
 	@Override
@@ -392,5 +408,35 @@ public class GUI extends JFrame implements KeyListener
 		this.toFront();
 		this.setState(Frame.NORMAL);
 		this.requestFocus();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		this.requestFocus();
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
