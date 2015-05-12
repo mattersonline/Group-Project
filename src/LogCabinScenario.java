@@ -28,7 +28,7 @@ public class LogCabinScenario extends ScenarioCard{
 	String alert4 = "The backdoor is open and you find a storage of food\n and a health kit inside!";
 	String alert5 = "CRACK! The door breaks down but you have sprained your ankle\n"
 			+ "You have been weakened for two turns\n"
-			+ "You also find a storage of foo and a baseball bat inside!";
+			+ "You also find a storage of food and a health kit inside!";
 	
 	@Override
 	public void runScript() {
