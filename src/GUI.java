@@ -5,7 +5,7 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
-public class GUI extends JFrame implements KeyListener 
+public class GUI extends JFrame implements KeyListener, MouseListener
 {
 	public JPanel mapPanel;
 	private JTextArea logBox;
@@ -22,6 +22,7 @@ public class GUI extends JFrame implements KeyListener
 		this.map = map;
 		int mapSize = this.map.getSize();
 		this.mapPanel = new JPanel(new GridLayout(mapSize,mapSize));
+		this.mapPanel.addMouseListener(this);
 		this.logBox = new JTextArea();
 		this.healthBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
 		this.healthBar.setPreferredSize(new Dimension(110,15));
@@ -222,6 +223,34 @@ public class GUI extends JFrame implements KeyListener
 		}
 		
 		this.updateHealthBar();
+		
+		if(successfullyMoved)
+		{
+			int y = this.currentPlayerLocation.getYCoordinate();
+			int x = this.currentPlayerLocation.getXCoordinate();
+			this.log("Player moved to " + x  + "," + y);
+			
+			if(this.currentPlayerLocation.equals(this.map.getFinish()))
+			{
+				this.removeKeyListener(this);
+				this.prompt(
+						"Congratulations... YOU WON!!", 
+						"FINISHED", 
+						new ImageIcon("src/images/manwithtrophy.png"), 
+						new String[] {"OK"}, 
+						"OK");
+			}
+			else if(WildernessSurvival.player.getHealth() <= 0)
+			{
+				this.removeKeyListener(this);
+				this.log("GAME OVER! YOU DIED!");
+			}
+		}
+		else
+		{
+			this.log("Player tried to go to an invalid spot");
+		}
+		
 		return successfullyMoved;
 	}
 	
@@ -271,33 +300,7 @@ public class GUI extends JFrame implements KeyListener
 			default:
 				this.log("Invalid Input!");
 		}
-		
-		if(movePlayer(currentDirection))
-		{
-			int y = this.currentPlayerLocation.getYCoordinate();
-			int x = this.currentPlayerLocation.getXCoordinate();
-			this.log("Player moved to " + x  + "," + y);
-			
-			if(this.currentPlayerLocation.equals(this.map.getFinish()))
-			{
-				this.removeKeyListener(this);
-				this.prompt(
-						"Congratulations... YOU WON!!", 
-						"FINISHED", 
-						new ImageIcon("src/images/manwithtrophy.png"), 
-						new String[] {"OK"}, 
-						"OK");
-			}
-			else if(WildernessSurvival.player.getHealth() <= 0)
-			{
-				this.removeKeyListener(this);
-				this.log("GAME OVER! YOU DIED!");
-			}
-		}
-		else
-		{
-			this.log("Player tried to go to an invalid spot");
-		}
+		this.movePlayer(currentDirection);
 	}
 
 	@Override
@@ -392,5 +395,35 @@ public class GUI extends JFrame implements KeyListener
 		this.toFront();
 		this.setState(Frame.NORMAL);
 		this.requestFocus();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		this.requestFocus();
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
