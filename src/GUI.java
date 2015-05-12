@@ -259,6 +259,11 @@ public class GUI extends JFrame implements KeyListener, MouseListener, ActionLis
 		{
 			int y = this.currentPlayerLocation.getYCoordinate();
 			int x = this.currentPlayerLocation.getXCoordinate();
+			WildernessSurvival.player.updateEnergy(-12);
+			if(WildernessSurvival.player.getEnergy() == 0){
+				WildernessSurvival.player.updateHealth(-7);
+			}
+			WildernessSurvival.gui.update();
 			this.log("Player moved to " + x  + "," + y);
 			
 			if(this.currentPlayerLocation.equals(this.map.getFinish()))
@@ -355,7 +360,6 @@ public class GUI extends JFrame implements KeyListener, MouseListener, ActionLis
 		WildernessSurvival.gui.log("Your health is now : " + newHealth);
 		WildernessSurvival.gui.log("Your hunger is now : " + newHunger);
 		if(WildernessSurvival.player.getWeakenedCounter() > 0){
-			WildernessSurvival.player.updateWeakenedCounter(-1);
 			WildernessSurvival.gui.log("You are weakened for another " + WildernessSurvival.player.getWeakenedCounter() + " turns!");
 		}
 		this.updateHealthBar();

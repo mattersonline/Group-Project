@@ -1,13 +1,19 @@
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.util.Random;
 
 
 public abstract class EncounterScenario extends ScenarioCard {
 	protected Mammal enemy;
+	private boolean hasAttacked = false;
+	Random random = new Random();
 	public void runScript(){
-		WildernessSurvival.gui.log("You are being attacked by a " + enemy.toString() + "!");
-		WildernessSurvival.gui.alert("You are being attacked by a " + enemy.toString() + "!");
-		
+		String[] choices1 = {"Attack", "Run"};
+		int choice;
+		WildernessSurvival.gui.log("Sample script");
+		WildernessSurvival.gui.log("you are being attacked by a " + enemy.toString());
+		choice = WildernessSurvival.gui.prompt("You are being attacked by a " + enemy.toString(), enemy.toString() + " Attack",
+				null, choices1, "Attack");
 		// CREDIT: Online chapter 38 section 38.6.4
 		/*JOptionPane.showOptionDialog(null, 
 				"You are being attacked by a " + enemy.getClass().getTypeName() + "! What would you like to do? ", 
@@ -17,27 +23,35 @@ public abstract class EncounterScenario extends ScenarioCard {
 				new ImageIcon("src/images/player.png"), 
 				new Object[]{"run away", "fight"}, 
 				"fight");*/
-		
-		enemy.attack(WildernessSurvival.player);
-		int newHealth = WildernessSurvival.player.getHealth();
-		int newHunger = WildernessSurvival.player.getEnergy();
-		WildernessSurvival.gui.log("Your health is now : " + newHealth);
-		WildernessSurvival.gui.log("Your hunger is now : " + newHunger);
-		
-		if(newHealth <= 0)
-		{
-			WildernessSurvival.gui.log("Your health is empty so resetting health");
-			WildernessSurvival.player.updateHealth(100);
-			WildernessSurvival.gui.log("Your health is now : " + WildernessSurvival.player.getHealth());
+		if(choice == 0){
+			enemy.attack(WildernessSurvival.player);
+			if(random.nextInt(10) > 5){
+				WildernessSurvival.gui.alert("The " + enemy.toString() + " has yielded some edible meat");
+				WildernessSurvival.player.addFood(1);
+			}
+			hasAttacked = true;
 		}
-
-		if(newHunger <= 0)
-		{
-			WildernessSurvival.gui.log("Your hunger is empty so resetting health");
-			WildernessSurvival.player.updateEnergy(100);
-			WildernessSurvival.gui.log("Your health is now : " + WildernessSurvival.player.getEnergy());
+		else {
+			if(random.nextInt(75) + (WildernessSurvival.player.getEnergy()*.2) < 75){
+				WildernessSurvival.gui.alert("You have have failed to run away!");
+				enemy.attack(WildernessSurvival.player);
+				if(random.nextInt(10) > 5){
+					WildernessSurvival.gui.alert("The " + enemy.toString() + " has yielded some edible meat");
+					WildernessSurvival.player.addFood(1);
+				}
+				hasAttacked = true;
+			}
+			else {
+				WildernessSurvival.gui.alert("You have successfully ran away!");
+			}
 		}
+		WildernessSurvival.player.updateWeakenedCounter(-1);
+		WildernessSurvival.gui.update();
 		
+		WildernessSurvival.gui.updateHealthBar();
+	}
+	public boolean getHasAttacked(){
+		return hasAttacked;
 	}
 	public abstract int getHealthMod();
 	public abstract Item[] addItem();

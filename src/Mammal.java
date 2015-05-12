@@ -73,11 +73,9 @@ public abstract class Mammal {
 		if(attackStrength > 0)
 		{
 			tempStrength = this.energy;
-			this.energy -= attackStrength;
+			this.energy -= attackStrength / 2;
 			attackStrength -= tempStrength;
 			
-			// reset energy to zero if it went under 0
-			if(this.energy < 0) this.energy = 0;
 		}
 		
 		// if the attack strength was great enough to get past both 
@@ -88,8 +86,6 @@ public abstract class Mammal {
 			this.health -= attackStrength;
 			attackStrength -= tempStrength;
 			
-			// reset health to zero if it went under 0
-			if(this.health < 0) this.health = 0;
 		}
 		
 		// if the user is still alive, return a counter attack value
@@ -115,19 +111,29 @@ public abstract class Mammal {
 	
 	public void updateHealth(int amount)
 	{
-		if(this.health + amount <= 100){
+		if(this.health + amount <= 100 && this.health + amount >= 0){
 			this.health += amount;
 		}
-		else this.health = 100;
+		else if (this.health + amount > 100){
+			this.health = 100;
+		}
+		else if(this.health + amount < 0){
+			this.health = 0;
+		}
 		
 	}
 	
 	public void updateEnergy(int amount)
 	{
-		if(this.energy + amount <= 100){
+		if(this.energy + amount <= 100 && this.energy + amount >= 0){
 			this.energy += amount;
 		}
-		else this.energy = 100;
+		else if (this.energy + amount > 100){
+			this.energy = 100;
+		}
+		else if(this.energy + amount < 0){
+			this.energy = 0;
+		}
 	}
 
 	public void weaken(int turns){

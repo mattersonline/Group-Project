@@ -8,13 +8,16 @@ public class PoisonBerriesScenario extends ScenarioCard {
 		String [] options1 = {"Leave them", "Eat some"};
 		String default1 = "Leave them";
 		
-		String alert1 = "The berries taste horrible. They were poisoned. You have been weakened for 5 turns";
+		String alert1 = "The berries taste horrible. They were poisoned. You have been weakened for 2 combats\n" +
+				"You have also lost 20 health points but they recover your hunger slightly";
 		
 		choice = WildernessSurvival.gui.prompt(message1, title1, null, options1, default1);
 		
 		if(choice == 1){
 			WildernessSurvival.gui.alert(alert1);
-			WildernessSurvival.player.weaken(5);
+			WildernessSurvival.player.weaken(2);
+			WildernessSurvival.player.updateHealth(-20);
+			WildernessSurvival.player.updateEnergy(20);
 		}
 		WildernessSurvival.gui.update();
 	}
