@@ -5,7 +5,7 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
-public class GUI extends JFrame implements KeyListener, MouseListener
+public class GUI extends JFrame implements KeyListener, MouseListener, ActionListener
 {
 	public JPanel mapPanel;
 	private JTextArea logBox;
@@ -19,6 +19,8 @@ public class GUI extends JFrame implements KeyListener, MouseListener
 	private JLabel weaponLabel;
 	private JLabel weaponDamageLabel;
 	private JLabel weaponUseLabel;
+	JButton healthButton;
+	JButton foodButton;
 	
 	public GUI(Map map)
 	{
@@ -100,12 +102,14 @@ public class GUI extends JFrame implements KeyListener, MouseListener
 		weaponPanel.add(weaponStatsPanel, BorderLayout.SOUTH);
 		inventoryPanel.add(weaponPanel);
 		
-		JButton healthButton = new JButton(new ImageIcon("src/images/firstaid.png"));
-		healthButton.setText(" x 0");
+		healthButton = new JButton(new ImageIcon("src/images/firstaid.png"));
+		healthButton.setText(" x " + WildernessSurvival.player.getHealthPackCount());
+		healthButton.addActionListener(this);
 		inventoryPanel.add(healthButton);
-		JButton foodButton = new JButton(new ImageIcon("src/images/fruit.png"));
+		foodButton = new JButton(new ImageIcon("src/images/fruit.png"));
 		inventoryPanel.add(foodButton);
-		foodButton.setText(" x 0");
+		foodButton.setText(" x " + WildernessSurvival.player.getFoodCount());
+		foodButton.addActionListener(this);
 		
 		// add healthPanel to right side
 		rightPanel.add(healthPanel);
@@ -340,13 +344,20 @@ public class GUI extends JFrame implements KeyListener, MouseListener
 	@Override
 	public void keyTyped(KeyEvent ke) { }
 	
+	public void updateButtons(){
+		healthButton.setText(" x " + WildernessSurvival.player.getHealthPackCount());
+		foodButton.setText(" x " + WildernessSurvival.player.getFoodCount());
+	}
+	
 	public void update(){
 		int newHealth = WildernessSurvival.player.getHealth();
 		int newHunger = WildernessSurvival.player.getEnergy();
 		WildernessSurvival.gui.log("Your health is now : " + newHealth);
 		WildernessSurvival.gui.log("Your hunger is now : " + newHunger);
-		WildernessSurvival.player.updateWeakenedCounter(-1);
-		WildernessSurvival.gui.log("You are weakened for another " + WildernessSurvival.player.getWeakenedCounter() + " turns!");
+		if(WildernessSurvival.player.getWeakenedCounter() > 0){
+			WildernessSurvival.player.updateWeakenedCounter(-1);
+			WildernessSurvival.gui.log("You are weakened for another " + WildernessSurvival.player.getWeakenedCounter() + " turns!");
+		}
 		this.updateHealthBar();
 	}
 	
@@ -455,6 +466,19 @@ public class GUI extends JFrame implements KeyListener, MouseListener
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		if(arg0.getSource() == foodButton){
+			WildernessSurvival.player.useFoodItem();
+			this.updateButtons();
+		}
+		else if(arg0.getSource() == healthButton){
+			WildernessSurvival.player.useHealthPack();
+			this.updateButtons();
+		}
 		
 	}
 }

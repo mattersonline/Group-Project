@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-// Human is a Mammal that also has healthpacks and food items
+// Human is a Mammal that also has health packs and food items
 public class Human extends Mammal {
 
 	private int healthPackCount;
@@ -11,8 +11,16 @@ public class Human extends Mammal {
 		// humans have strength multiplier of 50%
 		// (bears might have 70% - 80% or something like that)
 		super(.5); 
-		this.healthPackCount = 0;
+		this.healthPackCount = 1;
 		this.foodCount = 0;
+	}
+	
+	public void addHealthpack(int i){
+		healthPackCount += i;
+	}
+	
+	public void addFood(int i){
+		foodCount += i;
 	}
 	
 	public void useFoodItem()
@@ -21,6 +29,8 @@ public class Human extends Mammal {
 		{
 			super.updateEnergy(25);
 			this.foodCount--;
+			WildernessSurvival.gui.updateButtons();
+			WildernessSurvival.gui.update();
 		}
 	}
 	
@@ -29,7 +39,6 @@ public class Human extends Mammal {
 		return this.healthPackCount;
 	}
 
-<<<<<<< HEAD
 	public int getFoodCount()
 	{
 		return this.foodCount;
@@ -41,10 +50,11 @@ public class Human extends Mammal {
 		{
 			super.updateHealth(25);
 			this.healthPackCount--;
+			WildernessSurvival.gui.updateButtons();
+			WildernessSurvival.gui.update();
 		}
-=======
+	}
 	public String toString(){
 		return "Human";
->>>>>>> refs/remotes/origin/master
 	}
 }
