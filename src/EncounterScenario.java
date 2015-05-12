@@ -5,7 +5,7 @@ import java.util.Random;
 
 public abstract class EncounterScenario extends ScenarioCard {
 	protected Mammal enemy;
-	private boolean hasAttacked = false;
+	protected boolean hasAttacked = false;
 	Random random = new Random();
 	public void runScript(){
 		String[] choices1 = {"Attack", "Run"};
