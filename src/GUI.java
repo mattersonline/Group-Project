@@ -299,15 +299,19 @@ public class GUI extends JFrame implements KeyListener, MouseListener
 		switch(key)
 		{
 			case KeyEvent.VK_UP:
+			case KeyEvent.VK_I:
 				currentDirection = Direction.NORTH;
 				break;
 			case KeyEvent.VK_RIGHT:
+			case KeyEvent.VK_L:
 				currentDirection = Direction.EAST;
 				break;
 			case KeyEvent.VK_DOWN:
+			case KeyEvent.VK_K:
 				currentDirection = Direction.SOUTH;
 				break;
 			case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_J:
 				currentDirection = Direction.WEST;
 				break;
 			default:
