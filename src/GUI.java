@@ -275,6 +275,7 @@ public class GUI extends JFrame implements KeyListener, MouseListener, ActionLis
 						new ImageIcon("src/images/manwithtrophy.png"), 
 						new String[] {"OK"}, 
 						"OK");
+				JOptionPane.showMessageDialog(null, "Credits:\nProgrammed by: Mathew Borum, David Taylor");
 			}
 			else if(WildernessSurvival.player.getHealth() <= 0)
 			{
