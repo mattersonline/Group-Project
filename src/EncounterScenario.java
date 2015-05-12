@@ -33,7 +33,7 @@ public abstract class EncounterScenario extends ScenarioCard {
 		}
 		else {
 			if(random.nextInt(75) + (WildernessSurvival.player.getEnergy()*.2) < 75){
-				WildernessSurvival.gui.alert("You have have failed to run away!");
+				WildernessSurvival.gui.alert("You have have failed to run away!\nThe " + enemy.toString() + " attacks!");
 				enemy.attack(WildernessSurvival.player);
 				if(random.nextInt(10) > 5){
 					WildernessSurvival.gui.alert("The " + enemy.toString() + " has yielded some edible meat");
