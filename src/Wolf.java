@@ -5,4 +5,8 @@ public class Wolf extends Mammal {
 	public Wolf(double str){
 		super(str);
 	}
+	
+	public String toString(){
+		return "Wolf";
+	}
 }

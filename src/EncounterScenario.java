@@ -5,9 +5,8 @@ import javax.swing.JOptionPane;
 public abstract class EncounterScenario extends ScenarioCard {
 	protected Mammal enemy;
 	public void runScript(){
-		WildernessSurvival.gui.log("Sample script");
-		WildernessSurvival.gui.log("you are being attacked by a " + enemy.getClass().getTypeName());
-		WildernessSurvival.gui.alert("you are being attacked by a " + enemy.getClass().getTypeName());
+		WildernessSurvival.gui.log("You are being attacked by a " + enemy.toString() + "!");
+		WildernessSurvival.gui.alert("You are being attacked by a " + enemy.toString() + "!");
 		
 		// CREDIT: Online chapter 38 section 38.6.4
 		/*JOptionPane.showOptionDialog(null, 

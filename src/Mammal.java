@@ -143,6 +143,8 @@ public abstract class Mammal {
 	public void updateWeakenedCounter(int i){
 		weakenedCounter += i;
 	}
+	
+	public abstract String toString();
 }
 
 /*
