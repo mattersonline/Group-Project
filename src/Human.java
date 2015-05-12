@@ -1,34 +1,50 @@
 import java.util.ArrayList;
 
-// Human is a Mammal that also has an inventory of items
+// Human is a Mammal that also has healthpacks and food items
 public class Human extends Mammal {
 
-	private ArrayList<Item> inventory;
+	private int healthPackCount;
+	private int foodCount;
 	
 	public Human()
 	{	
 		// humans have strength multiplier of 50%
 		// (bears might have 70% - 80% or something like that)
 		super(.5); 
-		this.inventory = new ArrayList<Item>();
+		this.healthPackCount = 0;
+		this.foodCount = 0;
 	}
 	
-	public Item[] getInventory()
+	public void useFoodItem()
 	{
-		return this.inventory.toArray(new Item[]{});
+		if(this.foodCount > 0) // has at least 1
+		{
+			super.updateEnergy(25);
+			this.foodCount--;
+		}
 	}
 	
-	public void addInventoryItem(Item item)
+	public int getHealthPackCount()
 	{
-		this.inventory.add(item);
-	}
-	
-	public void useItem(Item item)
-	{
-		
+		return this.healthPackCount;
 	}
 
+<<<<<<< HEAD
+	public int getFoodCount()
+	{
+		return this.foodCount;
+	}
+	
+	public void useHealthPack()
+	{
+		if(this.healthPackCount > 0) // has at least 1
+		{
+			super.updateHealth(25);
+			this.healthPackCount--;
+		}
+=======
 	public String toString(){
 		return "Human";
+>>>>>>> refs/remotes/origin/master
 	}
 }
