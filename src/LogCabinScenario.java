@@ -25,7 +25,7 @@ public class LogCabinScenario extends ScenarioCard{
 	String alert1 = "The windows are grimy and you cannot see in";
 	String alert2 = "It is locked";
 	String alert3 = "You find a wild dog waiting for you in the back yard\n" + "It attacks!";
-	String alert4 = "The backdoor is open and you find a storage of food\n and a baseball bat inside!";
+	String alert4 = "The backdoor is open and you find a storage of food\n and a health kit inside!";
 	String alert5 = "CRACK! The door breaks down but you have sprained your ankle\n"
 			+ "You have been weakened for two turns\n"
 			+ "You also find a storage of foo and a baseball bat inside!";
@@ -60,12 +60,20 @@ public class LogCabinScenario extends ScenarioCard{
 				case 2:
 					WildernessSurvival.gui.alert(alert3);
 					s1.runScript();
-					WildernessSurvival.gui.alert(alert4);
+					if(s1.getHasAttacked()){
+						WildernessSurvival.gui.alert(alert4);
+						WildernessSurvival.player.addFood(2);
+						WildernessSurvival.player.addHealthpack(1);
+						WildernessSurvival.gui.updateButtons();
+					}
 					WildernessSurvival.gui.refocus();
 					break;
 				case 3:
 					WildernessSurvival.gui.alert(alert5);
 					WildernessSurvival.player.weaken(2);
+					WildernessSurvival.player.addFood(3);
+					WildernessSurvival.player.addHealthpack(1);
+					WildernessSurvival.gui.updateButtons();
 					WildernessSurvival.gui.refocus();
 					break;
 				}
@@ -73,7 +81,12 @@ public class LogCabinScenario extends ScenarioCard{
 			case 3:
 				WildernessSurvival.gui.alert(alert3);
 				s1.runScript();
-				WildernessSurvival.gui.alert(alert4);
+				if(s1.getHasAttacked()){
+					WildernessSurvival.gui.alert(alert4);
+					WildernessSurvival.player.addFood(3);
+					WildernessSurvival.player.addHealthpack(1);
+					WildernessSurvival.gui.updateButtons();
+				}
 				WildernessSurvival.gui.refocus();
 				break;
 				

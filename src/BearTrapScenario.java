@@ -6,8 +6,7 @@ public class BearTrapScenario extends ScenarioCard {
 	public void runScript() {
 		WildernessSurvival.gui.log("SNAP! A bear trap closes around your leg!");
 		WildernessSurvival.player.updateHealth(-10);
-		WildernessSurvival.gui.log("The bear trap does 10 and your defense is crippled for 5 turns");
-		WildernessSurvival.gui.log("Your health is now : " + WildernessSurvival.player.getHealth());
+		WildernessSurvival.gui.alert("The bear trap does 10 dagmage and your defense is crippled for 5 turns");
 		WildernessSurvival.player.weaken(5);
 		WildernessSurvival.gui.update();
 	}

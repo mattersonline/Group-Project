@@ -17,17 +17,19 @@ public class Human extends Mammal {
 	
 	public void addHealthpack(int i){
 		healthPackCount += i;
+		WildernessSurvival.gui.updateButtons();
 	}
 	
 	public void addFood(int i){
 		foodCount += i;
+		WildernessSurvival.gui.updateButtons();
 	}
 	
 	public void useFoodItem()
 	{
 		if(this.foodCount > 0) // has at least 1
 		{
-			super.updateEnergy(25);
+			super.updateEnergy(60);
 			this.foodCount--;
 			WildernessSurvival.gui.updateButtons();
 			WildernessSurvival.gui.update();
@@ -48,7 +50,7 @@ public class Human extends Mammal {
 	{
 		if(this.healthPackCount > 0) // has at least 1
 		{
-			super.updateHealth(25);
+			super.updateHealth(50);
 			this.healthPackCount--;
 			WildernessSurvival.gui.updateButtons();
 			WildernessSurvival.gui.update();
