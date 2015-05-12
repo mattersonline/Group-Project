@@ -44,10 +44,23 @@ public class GUI extends JFrame implements KeyListener, MouseListener
 		statusPanel.add(logPane, BorderLayout.CENTER);
 		
 		JPanel directionButtonsPanel = new JPanel(new BorderLayout());
-		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/leftarrow.png")), BorderLayout.WEST);
-		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/forwardarrow.png")), BorderLayout.NORTH);
-		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/rightarrow.png")), BorderLayout.EAST);
-		directionButtonsPanel.add(new JButton(new ImageIcon("src/images/backarrow.png")), BorderLayout.SOUTH);
+		
+		JButton leftButton = new JButton(new ImageIcon("src/images/leftarrow.png"));
+		leftButton.addMouseListener(new MoveButtonListener(Direction.WEST));
+		
+		JButton upButton = new JButton(new ImageIcon("src/images/forwardarrow.png"));
+		upButton.addMouseListener(new MoveButtonListener(Direction.NORTH));
+		
+		JButton rightButton = new JButton(new ImageIcon("src/images/rightarrow.png"));
+		rightButton.addMouseListener(new MoveButtonListener(Direction.EAST));
+		
+		JButton downButton = new JButton(new ImageIcon("src/images/backarrow.png"));
+		downButton.addMouseListener(new MoveButtonListener(Direction.SOUTH));
+		
+		directionButtonsPanel.add(leftButton, BorderLayout.WEST);
+		directionButtonsPanel.add(upButton, BorderLayout.NORTH);
+		directionButtonsPanel.add(rightButton, BorderLayout.EAST);
+		directionButtonsPanel.add(downButton, BorderLayout.SOUTH);
 		
 		statusPanel.add(directionButtonsPanel, BorderLayout.EAST);
 		
