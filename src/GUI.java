@@ -15,10 +15,6 @@ public class GUI extends JFrame implements KeyListener, MouseListener, ActionLis
 	private MapTile currentPlayerLocation;
 	private JPanel statusPanel;
 	private JPanel alertPanel;
-	private JPanel weaponPanel;
-	private JLabel weaponLabel;
-	private JLabel weaponDamageLabel;
-	private JLabel weaponUseLabel;
 	JButton healthButton;
 	JButton foodButton;
 	
@@ -86,21 +82,6 @@ public class GUI extends JFrame implements KeyListener, MouseListener, ActionLis
 		
 		// inventory panel
 		JPanel inventoryPanel = new JPanel(new GridLayout(3,1));
-		this.weaponPanel = new JPanel(new BorderLayout());
-		
-		this.weaponLabel = new JLabel(new ImageIcon("src/images/dynamite.png"));
-		
-		JPanel weaponStatsPanel = new JPanel(new GridLayout(2,2));
-		weaponStatsPanel.add(new JLabel("Damage"));
-		this.weaponDamageLabel = new JLabel("|   75 ");
-		weaponStatsPanel.add(this.weaponDamageLabel);
-		weaponStatsPanel.add(new JLabel("Uses"));
-		this.weaponUseLabel = new JLabel("|   - ");
-		weaponStatsPanel.add(this.weaponUseLabel);
-
-		weaponPanel.add(weaponLabel, BorderLayout.CENTER);
-		weaponPanel.add(weaponStatsPanel, BorderLayout.SOUTH);
-		inventoryPanel.add(weaponPanel);
 		
 		healthButton = new JButton(new ImageIcon("src/images/firstaid.png"));
 		healthButton.setText(" x " + WildernessSurvival.player.getHealthPackCount());
@@ -275,7 +256,12 @@ public class GUI extends JFrame implements KeyListener, MouseListener, ActionLis
 						new ImageIcon("src/images/manwithtrophy.png"), 
 						new String[] {"OK"}, 
 						"OK");
-				JOptionPane.showMessageDialog(null, "Credits:\nProgrammed by: Mathew Borum, David Taylor");
+				JOptionPane.showMessageDialog(null, "Credits:\nProgrammed by: Mathew Borum, David Taylor (and possibly some code from Isaiah Acker)\n\n\"3d Man Holding Golden Trophy\" " +
+						"courtesy of David Castillo Dominici at FreeDigitalPhotos.net with some modifications by David Taylor\n\"Kumquat Fruit\" " + 
+						"courtesy of Mister GC at FreeDigitalPhotos.net with some modifications by David Taylor" +
+						"\n\"First Aid Kit\" courtesy of hywards at FreeDigitalPhotos.net with some modifications by David Taylor" +
+						"\n\"Man Looking Through Binoculars\" courtesy of David Castillo Dominici at FreeDigitalPhotos.net with some modifications by David Taylor" +
+						"\n\"Racing Flag\" courtesy of digitalart at FreeDigitalPhotos.net with some modifications by David Taylor"); 
 			}
 			else if(WildernessSurvival.player.getHealth() <= 0)
 			{
